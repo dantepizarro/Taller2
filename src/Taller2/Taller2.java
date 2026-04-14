@@ -4,11 +4,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.util.Scanner;
+import java.util.List;
 
 public class Taller2 {
-	
+	static List<Pokemon> lista_Poke;
 	public static void main(String[] args) {
-
+//dwadwdwadawdawdwadwadwadaw
 		Scanner scanner = new Scanner(System.in);
 		File Partida = new File("txts\\Registros.txt");
 		
@@ -84,7 +85,16 @@ public class Taller2 {
 			while ((linea = lector.readLine()) != null) {
 				String[] partes = linea.split(";");
 				String Nombre = partes[0];
-				
+				String habitat = partes[1]; 
+				double spawnrate = Double.parseDouble(partes[2]); 
+				int cantidad = partes.length; 
+				int stats = 0; 
+				for (int i = 3 ; i< cantidad-1; i++){
+				 	stats += Integer.parseInt(partes[i]); 
+				} 
+			String tipo = partes[9]; 
+			Pokemon poke = new Pokemon(Nombre, habitat, spawnrate, stats, tipo);
+			lista_Poke.add(poke); 
 
 			}
 		} catch (Exception e) {
