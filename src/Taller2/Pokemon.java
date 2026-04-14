@@ -1,0 +1,50 @@
+package Taller2;
+
+public class Pokemon {
+	private String nombre;
+	private String Habitat;
+	private float PorAparicion;
+	private int Stats;
+	private String Tipo;
+	
+
+	// ya vengo
+	//probemos con hacerla denuevo la sesion, avisame
+	public Pokemon(String nombre, String habitat, float porAparicion, int stats, String tipo) {
+		this.nombre = nombre;
+		Habitat = habitat;
+		PorAparicion = porAparicion;
+		Stats = stats;
+		Tipo = tipo;
+	}
+
+
+	public String getTipo() {
+		return Tipo;
+	}
+
+
+	public void setTipo(String tipo) {
+		Tipo = tipo;
+	}
+
+
+	public String getNombre() {
+		return nombre;
+	}
+
+
+	public String getHabitat() {
+		return Habitat;
+	}
+
+
+	public float getPorAparicion() {
+		return PorAparicion;
+	}
+
+
+	public int getStats() {
+		return Stats;
+	}
+}
