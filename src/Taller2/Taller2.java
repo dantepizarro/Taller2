@@ -1,18 +1,23 @@
 package Taller2;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.util.Scanner;
 import java.util.List;
 
 public class Taller2 {
-	static List<Pokemon> lista_Poke;
+	static List<Pokemon> lista_Poke = new ArrayList<>();
+	static List<String> EquipoAM = new ArrayList<>();
+	static List<AltoMando> Liga = new ArrayList<>();
+	static List<String> EquipoLider = new ArrayList<>();
+	static List<Lider> Lideres = new ArrayList<>();
 
 	public static void main(String[] args) {
 		
 		Scanner scanner = new Scanner(System.in);
-		File Partida = new File("txts\\Registros.txt");
+		File Partida = new File("txt\\Registros.txt");
 
 		try {
 			BufferedReader lector = new BufferedReader(new FileReader(Partida));
@@ -22,67 +27,15 @@ public class Taller2 {
 
 			}
 		} catch (Exception e) {
-
+			System.out.println("Problemas con el archivo Registros");
 		}
-
-		File ArchAltoMando = new File("txts\\Alto Mando.txt");
-
-		try {
-			BufferedReader lector = new BufferedReader(new FileReader(ArchAltoMando));
-			String linea;
-
-			while ((linea = lector.readLine()) != null) {
-				String[] partes = linea.split(";");
-
-				int Numero = Integer.parseInt(partes[0]);
-				String NombreAltoMando = partes[1];
-				for (int i = 2; i < 8; i++) {
-
-				}
-
-			}
-		} catch (Exception e) {
-
-		}
-
-		File ArchGimnasios = new File("txts\\Gimnasios.txt");
-		try {
-			BufferedReader lector = new BufferedReader(new FileReader(ArchGimnasios));
-			String linea;
-
-			while ((linea = lector.readLine()) != null) {
-				String[] partes = linea.split(";");
-				int Numero = Integer.parseInt(partes[0]);
-				String Nombre = partes[1];
-				String Estado = partes[2];
-				int Cantidad = Integer.parseInt(partes[3]);
-				for (int i = 4; i < Cantidad + 4; i++) {
-
-				}
-			}
-		} catch (Exception e) {
-
-		}
-
-		File ArchHabitats = new File("txts\\Habitats.txt");
-		try {
-			BufferedReader lector = new BufferedReader(new FileReader(ArchHabitats));
-			String linea;
-
-			while ((linea = lector.readLine()) != null) {
-				String Habitat = linea;
-
-			}
-		} catch (Exception e) {
-
-		}
-
-		File ArchPokedex = new File("txts\\Pokedex.txt");
+		
+		File ArchPokedex = new File("txt\\Pokedex.txt");
 		
 		try {
 			BufferedReader lector = new BufferedReader(new FileReader(ArchPokedex));
 			String linea;
-
+			
 			while ((linea = lector.readLine()) != null) {
 				String[] partes = linea.split(";");
 				String Nombre = partes[0];
@@ -95,14 +48,72 @@ public class Taller2 {
 				}
 				String tipo = partes[9];
 				Pokemon poke = new Pokemon(Nombre, habitat, spawnrate, stats, tipo);
-				System.out.println(poke);
+				
 				lista_Poke.add(poke);
+				
+				
+			}
+		} catch (Exception e) {
+			System.out.println("Problemas con el archivo pokedex");
+		}
 
+		File ArchAltoMando = new File("txt\\Alto Mando.txt");
+		System.out.println(ArchAltoMando.exists());
+		try {
+			BufferedReader lector = new BufferedReader(new FileReader(ArchAltoMando));
+			
+			String linea;
+
+			while ((linea = lector.readLine()) != null) {
+				String[] partes = linea.split(";");
+				EquipoAM.clear();
+				int Numero = Integer.parseInt(partes[0]);
+				String NombreAltoMando = partes[1];
+				for (int i = 2; i < 8; i++) {
+					EquipoAM.add(partes[i]);
+				}
+			AltoMando altoMando = new AltoMando(Numero,NombreAltoMando,EquipoAM);
+			Liga.add(altoMando);
+			
+			}
+		} catch (Exception e) {
+			System.out.println("problemas con el archivo Alto Mando");
+		}
+
+		File ArchGimnasios = new File("txt\\Gimnasios.txt");
+		try {
+			BufferedReader lector = new BufferedReader(new FileReader(ArchGimnasios));
+			String linea;
+
+			while ((linea = lector.readLine()) != null) {
+				String[] partes = linea.split(";");
+				int Numero = Integer.parseInt(partes[0]);
+				String Nombre = partes[1];
+				String Estado = partes[2];
+				int Cantidad = Integer.parseInt(partes[3]);
+				for (int i = 4; i < Cantidad + 4; i++) {
+					EquipoLider.add(partes[i]);
+				}
+			Lider lider = new Lider(Numero, Nombre, Estado, Cantidad, EquipoLider);
+			Lideres.add(lider);
+			}
+		} catch (Exception e) {
+			System.out.println("problemas con el archivo Gimnasios");
+		}
+
+		File ArchHabitats = new File("txt\\Habitats.txt");
+		try {
+			BufferedReader lector = new BufferedReader(new FileReader(ArchHabitats));
+			String linea;
+
+			while ((linea = lector.readLine()) != null) {
+				String Habitat = linea;
 
 			}
 		} catch (Exception e) {
-
+			System.out.println("Problema con el archivo Habitats");
 		}
+
 
 		MenuInicial();
 
