@@ -3,14 +3,14 @@ package Taller2;
 public class Pokemon {
 	private String nombre;
 	private String Habitat;
-	private float PorAparicion;
+	private double PorAparicion;
 	private int Stats;
 	private String Tipo;
 	
 
 	// ya vengo
 	//probemos con hacerla denuevo la sesion, avisame
-	public Pokemon(String nombre, String habitat, float porAparicion, int stats, String tipo) {
+	public Pokemon(String nombre, String habitat, double porAparicion, int stats, String tipo) {
 		this.nombre = nombre;
 		Habitat = habitat;
 		PorAparicion = porAparicion;
@@ -39,7 +39,7 @@ public class Pokemon {
 	}
 
 
-	public float getPorAparicion() {
+	public double getPorAparicion() {
 		return PorAparicion;
 	}
 

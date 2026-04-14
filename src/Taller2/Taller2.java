@@ -8,11 +8,12 @@ import java.util.List;
 
 public class Taller2 {
 	static List<Pokemon> lista_Poke;
+
 	public static void main(String[] args) {
-//dwadwdwadawdawdwadwadwadaw
+		
 		Scanner scanner = new Scanner(System.in);
 		File Partida = new File("txts\\Registros.txt");
-		
+
 		try {
 			BufferedReader lector = new BufferedReader(new FileReader(Partida));
 			String linea;
@@ -25,7 +26,7 @@ public class Taller2 {
 		}
 
 		File ArchAltoMando = new File("txts\\Alto Mando.txt");
-		
+
 		try {
 			BufferedReader lector = new BufferedReader(new FileReader(ArchAltoMando));
 			String linea;
@@ -38,7 +39,6 @@ public class Taller2 {
 				for (int i = 2; i < 8; i++) {
 
 				}
-				
 
 			}
 		} catch (Exception e) {
@@ -78,6 +78,7 @@ public class Taller2 {
 		}
 
 		File ArchPokedex = new File("txts\\Pokedex.txt");
+		
 		try {
 			BufferedReader lector = new BufferedReader(new FileReader(ArchPokedex));
 			String linea;
@@ -85,16 +86,18 @@ public class Taller2 {
 			while ((linea = lector.readLine()) != null) {
 				String[] partes = linea.split(";");
 				String Nombre = partes[0];
-				String habitat = partes[1]; 
-				double spawnrate = Double.parseDouble(partes[2]); 
-				int cantidad = partes.length; 
-				int stats = 0; 
-				for (int i = 3 ; i< cantidad-1; i++){
-				 	stats += Integer.parseInt(partes[i]); 
-				} 
-			String tipo = partes[9]; 
-			Pokemon poke = new Pokemon(Nombre, habitat, spawnrate, stats, tipo);
-			lista_Poke.add(poke); 
+				String habitat = partes[1];
+				double spawnrate = Double.parseDouble(partes[2]);
+				int cantidad = partes.length;
+				int stats = 0;
+				for (int i = 3; i < cantidad - 1; i++) {
+					stats += Integer.parseInt(partes[i]);
+				}
+				String tipo = partes[9];
+				Pokemon poke = new Pokemon(Nombre, habitat, spawnrate, stats, tipo);
+				System.out.println(poke);
+				lista_Poke.add(poke);
+
 
 			}
 		} catch (Exception e) {
