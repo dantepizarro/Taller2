@@ -6,9 +6,9 @@ public class Lider {
 	private String NombreLider;
 	private String Estado;
 	private int Cantidad;
-	private List<String> EquipoLider;
+	private List<Pokemon> EquipoLider;
 	
-	public Lider(int numero, String nombreLider, String estado, int cantidad, List<String> equipoLider) {
+	public Lider(int numero, String nombreLider, String estado, int cantidad, List<Pokemon> equipoLider) {
 		Numero = numero;
 		NombreLider = nombreLider;
 		Estado = estado;
@@ -32,7 +32,7 @@ public class Lider {
 		return Cantidad;
 	}
 
-	public List<String> getEquipoLider() {
+	public List<Pokemon> getEquipoLider() {
 		return EquipoLider;
 	}
 	

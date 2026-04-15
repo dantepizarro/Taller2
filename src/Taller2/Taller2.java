@@ -6,29 +6,23 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 import java.util.Scanner;
 import java.util.List;
+import java.util.Random;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 public class Taller2 {
 	static List<Pokemon> lista_Poke = new ArrayList<>();
-	static List<String> EquipoAM = new ArrayList<>();
+	static List<Pokemon> EquipoAM = new ArrayList<>();
 	static List<AltoMando> Liga = new ArrayList<>();
-	static List<String> EquipoLider = new ArrayList<>();
+	static List<Pokemon> EquipoLider = new ArrayList<>();
 	static List<Lider> Lideres = new ArrayList<>();
+	static List<String> Ficha = new ArrayList<>();
+	static List<Pokemon> PC = new ArrayList<>(); 
 
 	public static void main(String[] args) {
 		
 		Scanner scanner = new Scanner(System.in);
-		File Partida = new File("txt\\Registros.txt");
-
-		try {
-			BufferedReader lector = new BufferedReader(new FileReader(Partida));
-			String linea;
-
-			while ((linea = lector.readLine()) != null) {
-
-			}
-		} catch (Exception e) {
-			System.out.println("Problemas con el archivo Registros");
-		}
+		
 		
 		File ArchPokedex = new File("txt\\Pokedex.txt");
 		
@@ -69,8 +63,16 @@ public class Taller2 {
 				EquipoAM.clear();
 				int Numero = Integer.parseInt(partes[0]);
 				String NombreAltoMando = partes[1];
+				EquipoAM.clear();
+				
 				for (int i = 2; i < 8; i++) {
-					EquipoAM.add(partes[i]);
+					String NombrePokemon = partes[i];
+					
+					for(int j = 0;j<lista_Poke.size();j++) {
+						if(NombrePokemon.equals(lista_Poke.get(j).getNombre())) {
+							EquipoAM.add(lista_Poke.get(j));
+						}
+					}
 				}
 			AltoMando altoMando = new AltoMando(Numero,NombreAltoMando,EquipoAM);
 			Liga.add(altoMando);
@@ -89,10 +91,22 @@ public class Taller2 {
 				String[] partes = linea.split(";");
 				int Numero = Integer.parseInt(partes[0]);
 				String Nombre = partes[1];
+				System.out.println(Nombre);
 				String Estado = partes[2];
 				int Cantidad = Integer.parseInt(partes[3]);
+				EquipoLider.clear();
+				
 				for (int i = 4; i < Cantidad + 4; i++) {
-					EquipoLider.add(partes[i]);
+					String NombrePokemon = partes[i];
+					
+					
+					
+					for(int j = 0;j<lista_Poke.size();j++) {
+						if(NombrePokemon.equals(lista_Poke.get(j).getNombre())) {
+							EquipoLider.add(lista_Poke.get(j));
+							
+						}
+					}
 				}
 			Lider lider = new Lider(Numero, Nombre, Estado, Cantidad, EquipoLider);
 			Lideres.add(lider);
@@ -132,11 +146,11 @@ public class Taller2 {
 			switch (opcion) {
 				case 1:
 					MenuPrincipal();
-					System.out.println("Bienvenido {usuario} !!");
+					System.out.printf("Bienvenido %s !!\n",Ficha.get(0));
 					break;
 				case 2:
 					IngresarJugador();
-					System.out.println("Bienvenido {usuario} !!");
+					System.out.printf("Bienvenido %s !!\n",Ficha.get(0));
 					MenuPrincipal();
 					break;
 				case 3:
@@ -149,9 +163,36 @@ public class Taller2 {
 	public static void MenuPrincipal() {
 		// cargar datos de registros y dar la bienvenida
 		Scanner scanner = new Scanner(System.in);
+		
+		File Partida = new File("txt\\Registros.txt");
+
+		try {
+			BufferedReader lector = new BufferedReader(new FileReader(Partida));
+			String linea;
+			
+			if((linea = lector.readLine()) != null) {
+				String[] partes = linea.split(";");
+				Ficha.add(partes[0]);
+				for(int i = 1;i<partes.length; i++) {
+					Ficha.add(partes[i]);
+				}
+				
+			}
+			
+			
+			while ((linea = lector.readLine()) != null) {
+				String[] partes = linea.split(";");
+				String NombrePokemon = partes[0];
+				
+				
+			}
+		} catch (Exception e) {
+			System.out.println("Problemas con el archivo Registros");
+		}
+		
 		int opcion;
 		do {
-			System.out.println("{usuario}, que deseas hacer? ");
+			System.out.printf("%s, que deseas hacer?\n", Ficha.get(0));
 			System.out.println("1) Revisar equipo");
 			System.out.println("2) Salir a capturar");
 			System.out.println("3) Acceso al PC (cambiar Pokemon del equipo)");
@@ -204,17 +245,47 @@ public class Taller2 {
 
 	public static void IngresarJugador() {
 		Scanner scanner = new Scanner(System.in);
-		System.out.print("Ingrese su nombre de jugador: ");
-		String Nombre = scanner.nextLine();
 		
-		// reescribir registros con jugador nuevo
-		MenuPrincipal();
+		System.out.println("se eliminara la partida anterior");
+		System.out.println("Esta seguro? (Si/No)");
+		System.out.print(">");
+		String opcion = scanner.nextLine();
+		
+		if(opcion.equalsIgnoreCase("Si")) {
+			
+			System.out.print("Ingrese su nombre de jugador: ");
+			String Jugador = scanner.nextLine();
+			
+			String Medallas = "none";
+			
+			try {
+				BufferedWriter bw = new BufferedWriter(new FileWriter("txt\\Registros.txt"));
+				
+				bw.write(Jugador + ";" + Medallas);
+				bw.newLine();
+				
+				bw.close();
+				
+				System.out.println("Nueva partida creada con exito");
+			}catch (Exception e) {
+				System.out.println("Problemas con crear el archivo Registros");
+			}
+			
+			MenuPrincipal();
+		}else {
+			System.out.println("No se creo la nueva partida");
+			MenuInicial();
+			
+		}
+		
 	}
 	public static void Capturar(int ubicacion ) {
+		Random r = new Random();
 		switch(ubicacion){
 		case 1:
 			for (int i = 0; i < lista_Poke.size(); i ++) {
 				Pokemon pokemon_actual = lista_Poke.get(i);
+				
 				if (pokemon_actual.getHabitat().equalsIgnoreCase("Lago")) {
 					System.out.println(pokemon_actual.getNombre());
 				}

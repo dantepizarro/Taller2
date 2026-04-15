@@ -4,9 +4,9 @@ import java.util.List;
 public class AltoMando {
 	private int numero;
 	private String NombreAltoMando;
-	private List<String> EquipoAM;
+	private List<Pokemon> EquipoAM;
 	
-	public AltoMando(int numero, String nombre, List<String> equipoAM) {
+	public AltoMando(int numero, String nombre, List<Pokemon> equipoAM) {
 		this.numero = numero;
 		NombreAltoMando = nombre;
 		EquipoAM = equipoAM;
@@ -20,7 +20,7 @@ public class AltoMando {
 		return NombreAltoMando;
 	}
 
-	public List<String> getEquipoAM() {
+	public List<Pokemon> getEquipoAM() {
 		return EquipoAM;
 	}
 	public String toString() {
