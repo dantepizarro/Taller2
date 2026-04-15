@@ -132,9 +132,12 @@ public class Taller2 {
 			switch (opcion) {
 				case 1:
 					MenuPrincipal();
+					System.out.println("Bienvenido {usuario} !!");
 					break;
 				case 2:
 					IngresarJugador();
+					System.out.println("Bienvenido {usuario} !!");
+					MenuPrincipal();
 					break;
 				case 3:
 					break;
@@ -148,6 +151,7 @@ public class Taller2 {
 		Scanner scanner = new Scanner(System.in);
 		int opcion;
 		do {
+			System.out.println("{usuario}, que deseas hacer? ");
 			System.out.println("1) Revisar equipo");
 			System.out.println("2) Salir a capturar");
 			System.out.println("3) Acceso al PC (cambiar Pokemon del equipo)");
@@ -157,13 +161,23 @@ public class Taller2 {
 			System.out.println("7) Guardar");
 			System.out.println("8) Guardar y salir");
 			opcion = scanner.nextInt();
-
+			
 			switch (opcion) {
 				case 1:
 					// RevisarEquipo()
 					break;
 				case 2:
-					// Capturar()
+					System.out.println("Donde desea explorar?:  ");
+					System.out.println("Zonas disponibles: ");
+					System.out.println("1) Lago");
+					System.out.println("2) Cueva");
+					System.out.println("3) Montaña");
+					System.out.println("4) Bosque");
+					System.out.println("5) Prado");
+					System.out.println("6) Mar");
+					System.out.println("7) Regresar al menu");
+					int lugar = scanner.nextInt();
+					 Capturar(lugar);
 					break;
 				case 3:
 					// PC
@@ -192,9 +206,62 @@ public class Taller2 {
 		Scanner scanner = new Scanner(System.in);
 		System.out.print("Ingrese su nombre de jugador: ");
 		String Nombre = scanner.nextLine();
-
+		
 		// reescribir registros con jugador nuevo
 		MenuPrincipal();
 	}
-
+	public static void Capturar(int ubicacion ) {
+		switch(ubicacion){
+		case 1:
+			for (int i = 0; i < lista_Poke.size(); i ++) {
+				Pokemon pokemon_actual = lista_Poke.get(i);
+				if (pokemon_actual.getHabitat().equalsIgnoreCase("Lago")) {
+					System.out.println(pokemon_actual.getNombre());
+				}
+			}
+			break;
+		case 2:
+			for (int i = 0; i < lista_Poke.size(); i ++) {
+				Pokemon pokemon_actual = lista_Poke.get(i);
+				if (pokemon_actual.getHabitat().equalsIgnoreCase("Cueva")) {
+					System.out.println(pokemon_actual.getNombre());
+				}
+			}
+			break;
+		case 3:
+			for (int i = 0; i < lista_Poke.size(); i ++) {
+				Pokemon pokemon_actual = lista_Poke.get(i);
+				if (pokemon_actual.getHabitat().equalsIgnoreCase("Montaña")) {
+					System.out.println(pokemon_actual.getNombre());
+				}
+			}
+			break;
+		case 4:
+			for (int i = 0; i < lista_Poke.size(); i ++) {
+				Pokemon pokemon_actual = lista_Poke.get(i);
+				if (pokemon_actual.getHabitat().equalsIgnoreCase("Bosque")) {
+					System.out.println(pokemon_actual.getNombre());
+				}
+			}
+			break;
+		case 5:
+			for (int i = 0; i < lista_Poke.size(); i ++) {
+				Pokemon pokemon_actual = lista_Poke.get(i);
+				if (pokemon_actual.getHabitat().equalsIgnoreCase("Prado")) {
+					System.out.println(pokemon_actual.getNombre());
+				}
+			}
+			break;
+		case 6:
+			for (int i = 0; i < lista_Poke.size(); i ++) {
+				Pokemon pokemon_actual = lista_Poke.get(i);
+				if (pokemon_actual.getHabitat().equalsIgnoreCase("Mar")) {
+					System.out.println(pokemon_actual.getNombre());
+				}
+			}
+			break;
+		case 7: 
+			MenuPrincipal();
+		}
+	}
 }
