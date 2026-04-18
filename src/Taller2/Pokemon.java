@@ -47,4 +47,11 @@ public class Pokemon {
 	public int getStats() {
 		return Stats;
 	}
+
+
+	@Override
+	public String toString() {
+		return "Pokemon [nombre=" + nombre + "]";
+	}
+	
 }

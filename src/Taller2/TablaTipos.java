@@ -1,7 +1,9 @@
 package Taller2;
 
 public class TablaTipos {
-    // prueba para el commit
+    String tipo_OG ;
+    String tipo_new ;
+    String propio ;
     // Matriz de efectividad
     private static final double[][] EFECTIVIDAD = {
         // NOR  FUE  AGU  PLA  ELE  HIE  LUC  VEN  TIE  VOL  PSI  BIC  ROC  FAN  DRA  ACE  SIN  HAD

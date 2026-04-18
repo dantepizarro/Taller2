@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Random;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.net.PortUnreachableException;
 
 public class Taller2 {
 	static List<Pokemon> lista_Poke = new ArrayList<>();
@@ -18,6 +19,8 @@ public class Taller2 {
 	static List<Lider> Lideres = new ArrayList<>();
 	static List<String> Ficha = new ArrayList<>();
 	static List<Pokemon> PC = new ArrayList<>(); 
+	static List<String> habitats = new ArrayList<>();
+	static List<Pokemon> poke_ruta = new ArrayList<>();
 
 	public static void main(String[] args) {
 		
@@ -122,6 +125,7 @@ public class Taller2 {
 
 			while ((linea = lector.readLine()) != null) {
 				String Habitat = linea;
+				habitats.add(Habitat);
 
 			}
 		} catch (Exception e) {
@@ -281,58 +285,20 @@ public class Taller2 {
 	}
 	public static void Capturar(int ubicacion ) {
 		Random r = new Random();
-		switch(ubicacion){
-		case 1:
+		poke_ruta.clear();
+		int cantidad = 0;
 			for (int i = 0; i < lista_Poke.size(); i ++) {
 				Pokemon pokemon_actual = lista_Poke.get(i);
 				
-				if (pokemon_actual.getHabitat().equalsIgnoreCase("Lago")) {
-					System.out.println(pokemon_actual.getNombre());
+				if (pokemon_actual.getHabitat().equalsIgnoreCase(habitats.get(ubicacion-1))) {
+					int aparicion =(int)(pokemon_actual.getPorAparicion()*100);
+					for (int a = 0 ; a < aparicion ;a++) {
+						poke_ruta.add(pokemon_actual);						
+					}
 				}
 			}
-			break;
-		case 2:
-			for (int i = 0; i < lista_Poke.size(); i ++) {
-				Pokemon pokemon_actual = lista_Poke.get(i);
-				if (pokemon_actual.getHabitat().equalsIgnoreCase("Cueva")) {
-					System.out.println(pokemon_actual.getNombre());
-				}
-			}
-			break;
-		case 3:
-			for (int i = 0; i < lista_Poke.size(); i ++) {
-				Pokemon pokemon_actual = lista_Poke.get(i);
-				if (pokemon_actual.getHabitat().equalsIgnoreCase("Montaña")) {
-					System.out.println(pokemon_actual.getNombre());
-				}
-			}
-			break;
-		case 4:
-			for (int i = 0; i < lista_Poke.size(); i ++) {
-				Pokemon pokemon_actual = lista_Poke.get(i);
-				if (pokemon_actual.getHabitat().equalsIgnoreCase("Bosque")) {
-					System.out.println(pokemon_actual.getNombre());
-				}
-			}
-			break;
-		case 5:
-			for (int i = 0; i < lista_Poke.size(); i ++) {
-				Pokemon pokemon_actual = lista_Poke.get(i);
-				if (pokemon_actual.getHabitat().equalsIgnoreCase("Prado")) {
-					System.out.println(pokemon_actual.getNombre());
-				}
-			}
-			break;
-		case 6:
-			for (int i = 0; i < lista_Poke.size(); i ++) {
-				Pokemon pokemon_actual = lista_Poke.get(i);
-				if (pokemon_actual.getHabitat().equalsIgnoreCase("Mar")) {
-					System.out.println(pokemon_actual.getNombre());
-				}
-			}
-			break;
-		case 7: 
+			System.out.println(poke_ruta.get(0).getNombre());
 			MenuPrincipal();
 		}
-	}
+	
 }
