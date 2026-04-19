@@ -137,7 +137,7 @@ public class Taller2 {
 	}
 
 	public static void MenuInicial() {
-		// Cotrol de errores
+
 		Scanner scanner = new Scanner(System.in);
 		int opcion;
 		do {
@@ -206,7 +206,7 @@ public class Taller2 {
 			System.out.println("6) Curar equipo");
 			System.out.println("7) Guardar");
 			System.out.println("8) Guardar y salir");
-			System.out.println("> ");
+			System.out.println(">");
 			opcion = scanner.nextInt();
 			
 			switch (opcion) {
@@ -324,6 +324,7 @@ public class Taller2 {
 		System.out.println("¿Que desea hacer?");
 		System.out.println("1) Capturar");
 		System.out.println("2) Escapar");
+		System.out.println(">");
 		int opc = scan.nextInt();
 		switch(opc) {
 		case 1:
