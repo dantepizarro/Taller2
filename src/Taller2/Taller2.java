@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Random;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.io.IOException;
 
 public class Taller2 {
 	static List<Pokemon> lista_Poke = new ArrayList<>();
@@ -18,6 +19,9 @@ public class Taller2 {
 	static List<Lider> Lideres = new ArrayList<>();
 	static List<String> Ficha = new ArrayList<>();
 	static List<Pokemon> PC = new ArrayList<>(); 
+	static List<String> habitats = new ArrayList<>();
+	static List<Pokemon> poke_ruta = new ArrayList<>();
+	static List<Pokemon> Equipo = new ArrayList<>();
 
 	public static void main(String[] args) {
 		
@@ -41,7 +45,7 @@ public class Taller2 {
 					stats += Integer.parseInt(partes[i]);
 				}
 				String tipo = partes[9];
-				Pokemon poke = new Pokemon(Nombre, habitat, spawnrate, stats, tipo);
+				Pokemon poke = new Pokemon(Nombre, habitat, spawnrate, stats, tipo,"vivo");
 				
 				lista_Poke.add(poke);
 				
@@ -99,8 +103,6 @@ public class Taller2 {
 				for (int i = 4; i < Cantidad + 4; i++) {
 					String NombrePokemon = partes[i];
 					
-					
-					
 					for(int j = 0;j<lista_Poke.size();j++) {
 						if(NombrePokemon.equals(lista_Poke.get(j).getNombre())) {
 							EquipoLider.add(lista_Poke.get(j));
@@ -122,6 +124,7 @@ public class Taller2 {
 
 			while ((linea = lector.readLine()) != null) {
 				String Habitat = linea;
+				habitats.add(Habitat);
 
 			}
 		} catch (Exception e) {
@@ -141,17 +144,15 @@ public class Taller2 {
 			System.out.println("1) Continuar");
 			System.out.println("2) Nueva Partida");
 			System.out.println("3) Salir");
+			System.out.println(">");
 			opcion = scanner.nextInt();
 
 			switch (opcion) {
 				case 1:
 					MenuPrincipal();
-					System.out.printf("Bienvenido %s !!\n",Ficha.get(0));
 					break;
 				case 2:
-					IngresarJugador();
-					System.out.printf("Bienvenido %s !!\n",Ficha.get(0));
-					MenuPrincipal();
+					IngresarJugador();		
 					break;
 				case 3:
 					break;
@@ -161,7 +162,6 @@ public class Taller2 {
 	}
 
 	public static void MenuPrincipal() {
-		// cargar datos de registros y dar la bienvenida
 		Scanner scanner = new Scanner(System.in);
 		
 		File Partida = new File("txt\\Registros.txt");
@@ -176,22 +176,27 @@ public class Taller2 {
 				for(int i = 1;i<partes.length; i++) {
 					Ficha.add(partes[i]);
 				}
-				
 			}
-			
-			
 			while ((linea = lector.readLine()) != null) {
 				String[] partes = linea.split(";");
 				String NombrePokemon = partes[0];
+				String Estado = partes[1];
+				for(int i = 0;i<lista_Poke.size();i++) {
+					if(NombrePokemon.equals(lista_Poke.get(i).getNombre())){
+						Equipo.add(lista_Poke.get(i));
+						System.out.println(Equipo.size());
+					}
+				}
 				
-				
-			}
+			}	
 		} catch (Exception e) {
 			System.out.println("Problemas con el archivo Registros");
 		}
 		
 		int opcion;
 		do {
+			
+			System.out.printf("Bienvenido %s !!\n",Ficha.get(0));
 			System.out.printf("%s, que deseas hacer?\n", Ficha.get(0));
 			System.out.println("1) Revisar equipo");
 			System.out.println("2) Salir a capturar");
@@ -201,24 +206,15 @@ public class Taller2 {
 			System.out.println("6) Curar equipo");
 			System.out.println("7) Guardar");
 			System.out.println("8) Guardar y salir");
+			System.out.println(">");
 			opcion = scanner.nextInt();
 			
 			switch (opcion) {
 				case 1:
-					// RevisarEquipo()
+					RevisarEquipo();
 					break;
 				case 2:
-					System.out.println("Donde desea explorar?:  ");
-					System.out.println("Zonas disponibles: ");
-					System.out.println("1) Lago");
-					System.out.println("2) Cueva");
-					System.out.println("3) Montaña");
-					System.out.println("4) Bosque");
-					System.out.println("5) Prado");
-					System.out.println("6) Mar");
-					System.out.println("7) Regresar al menu");
-					int lugar = scanner.nextInt();
-					 Capturar(lugar);
+					ElegirZona();
 					break;
 				case 3:
 					// PC
@@ -242,6 +238,31 @@ public class Taller2 {
 			}
 		} while (opcion != 8);
 	}
+	
+	public static void RevisarEquipo() {
+		System.out.println("Equipo Actual:");
+		System.out.println(Equipo.size());
+		for(int i = 0;i<Equipo.size();i++) {
+			System.out.printf("%d) %s|%s|Stats totales: %s",i+1,Equipo.get(i).getNombre(),Equipo.get(i).getTipo(),Equipo.get(i).getStats());
+			System.out.println();
+		}
+	}
+	
+	public static void ElegirZona() {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Donde desea explorar?:  ");
+		System.out.println("Zonas disponibles: ");
+		System.out.println("1) Lago");
+		System.out.println("2) Cueva");
+		System.out.println("3) Montaña");
+		System.out.println("4) Bosque");
+		System.out.println("5) Prado");
+		System.out.println("6) Mar");
+		System.out.println("7) Regresar al menu");
+		System.out.println(">");
+		int lugar = scanner.nextInt();
+		 Capturar(lugar);
+	}
 
 	public static void IngresarJugador() {
 		Scanner scanner = new Scanner(System.in);
@@ -262,7 +283,7 @@ public class Taller2 {
 				BufferedWriter bw = new BufferedWriter(new FileWriter("txt\\Registros.txt"));
 				
 				bw.write(Jugador + ";" + Medallas);
-				bw.newLine();
+				
 				
 				bw.close();
 				
@@ -280,59 +301,69 @@ public class Taller2 {
 		
 	}
 	public static void Capturar(int ubicacion ) {
+		Scanner scan = new Scanner(System.in);
 		Random r = new Random();
-		switch(ubicacion){
-		case 1:
-			for (int i = 0; i < lista_Poke.size(); i ++) {
+		poke_ruta.clear();
+		int cantidad = 0;
+			for( int i = 0; i< lista_Poke.size();i++) {
 				Pokemon pokemon_actual = lista_Poke.get(i);
 				
-				if (pokemon_actual.getHabitat().equalsIgnoreCase("Lago")) {
-					System.out.println(pokemon_actual.getNombre());
+				if(pokemon_actual.getHabitat().equalsIgnoreCase(habitats.get(ubicacion-1))) {
+					int aparicion = (int)(pokemon_actual.getPorAparicion()*100);
+					for(int a = 0;a<aparicion;a++) {
+						poke_ruta.add(pokemon_actual);
+					}
 				}
+		}
+			
+		int indice = r.nextInt(poke_ruta.size());
+		Pokemon salvaje = poke_ruta.get(indice);
+		
+		System.out.println("Aparecio un " + salvaje.getNombre());
+		System.out.println();
+		System.out.println("¿Que desea hacer?");
+		System.out.println("1) Capturar");
+		System.out.println("2) Escapar");
+		int opc = scan.nextInt();
+		switch(opc) {
+		case 1:
+			if(Equipo.size() >= 6) {
+				try {
+					BufferedWriter bw = new BufferedWriter(new FileWriter("txt/Registros.txt",true));
+					bw.write(salvaje.getNombre() + ";" + salvaje.getEstado());
+					
+					bw.newLine();
+					bw.close();
+					
+					
+					System.out.printf("%s capturado con exito!!\n",salvaje.getNombre());
+					System.out.printf("Tu equipo esta lleno, %s fue enviado a tu PC",salvaje.getNombre());
+					PC.add(salvaje);
+
+				}catch (Exception e) {
+					System.out.println("Problemas reescribiendo el archivo registros");
+				}
+				MenuPrincipal();
+			}else {
+				
+				try {
+					BufferedWriter bw = new BufferedWriter(new FileWriter("txt/Registros.txt",true));
+					bw.write(salvaje.getNombre() + ";" + salvaje.getEstado());
+					bw.close();
+					
+					
+					System.out.printf("%s capturado con exito!!\n",salvaje.getNombre());
+					Equipo.add(salvaje);
+					System.out.printf("%s ha sido agregado a tu equipo!",salvaje.getNombre());
+				}catch (Exception e) {
+					System.out.println("Problemas reescribiendo el archivo registros");
+				}
+				MenuPrincipal();
 			}
-			break;
 		case 2:
-			for (int i = 0; i < lista_Poke.size(); i ++) {
-				Pokemon pokemon_actual = lista_Poke.get(i);
-				if (pokemon_actual.getHabitat().equalsIgnoreCase("Cueva")) {
-					System.out.println(pokemon_actual.getNombre());
-				}
-			}
-			break;
-		case 3:
-			for (int i = 0; i < lista_Poke.size(); i ++) {
-				Pokemon pokemon_actual = lista_Poke.get(i);
-				if (pokemon_actual.getHabitat().equalsIgnoreCase("Montaña")) {
-					System.out.println(pokemon_actual.getNombre());
-				}
-			}
-			break;
-		case 4:
-			for (int i = 0; i < lista_Poke.size(); i ++) {
-				Pokemon pokemon_actual = lista_Poke.get(i);
-				if (pokemon_actual.getHabitat().equalsIgnoreCase("Bosque")) {
-					System.out.println(pokemon_actual.getNombre());
-				}
-			}
-			break;
-		case 5:
-			for (int i = 0; i < lista_Poke.size(); i ++) {
-				Pokemon pokemon_actual = lista_Poke.get(i);
-				if (pokemon_actual.getHabitat().equalsIgnoreCase("Prado")) {
-					System.out.println(pokemon_actual.getNombre());
-				}
-			}
-			break;
-		case 6:
-			for (int i = 0; i < lista_Poke.size(); i ++) {
-				Pokemon pokemon_actual = lista_Poke.get(i);
-				if (pokemon_actual.getHabitat().equalsIgnoreCase("Mar")) {
-					System.out.println(pokemon_actual.getNombre());
-				}
-			}
-			break;
-		case 7: 
-			MenuPrincipal();
+			System.out.println("Has escapado con exito");
+			System.out.println();
+			ElegirZona();
 		}
 	}
 }

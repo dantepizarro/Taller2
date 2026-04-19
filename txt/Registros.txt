@@ -1,1 +1,5 @@
-toño;none
+dante;none
+Psyduck;vivo
+Floatzel;vivo
+Steelix;vivo
+Centiskorch;vivo

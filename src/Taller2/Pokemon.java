@@ -6,16 +6,16 @@ public class Pokemon {
 	private double PorAparicion;
 	private int Stats;
 	private String Tipo;
+	private String Estado;
 	
 
-	// ya vengo
-	//probemos con hacerla denuevo la sesion, avisame
-	public Pokemon(String nombre, String habitat, double porAparicion, int stats, String tipo) {
+	public Pokemon(String nombre, String habitat, double porAparicion, int stats, String tipo, String estado) {
 		this.nombre = nombre;
 		Habitat = habitat;
 		PorAparicion = porAparicion;
 		Stats = stats;
 		Tipo = tipo;
+		Estado = estado;
 	}
 
 
@@ -47,4 +47,11 @@ public class Pokemon {
 	public int getStats() {
 		return Stats;
 	}
+	public String getEstado() {
+		return Estado;
+	}
+	public void setEstado(String estado) {
+		Estado = estado;
+	}
+	
 }
