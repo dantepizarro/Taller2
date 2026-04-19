@@ -9,13 +9,17 @@ public class Pokemon {
 	private String Estado;
 	
 
+
+	//falta agregar estado
 	public Pokemon(String nombre, String habitat, double porAparicion, int stats, String tipo, String estado) {
+
 		this.nombre = nombre;
 		Habitat = habitat;
 		PorAparicion = porAparicion;
 		Stats = stats;
 		Tipo = tipo;
 		Estado = estado;
+
 	}
 
 
@@ -47,6 +51,7 @@ public class Pokemon {
 	public int getStats() {
 		return Stats;
 	}
+
 	public String getEstado() {
 		return Estado;
 	}
@@ -55,3 +60,7 @@ public class Pokemon {
 	}
 	
 }
+	
+
+
+	

@@ -1,5 +1,9 @@
+<<<<<<< HEAD
 dante;none
 Psyduck;vivo
 Floatzel;vivo
 Steelix;vivo
 Centiskorch;vivo
+=======
+Antonio;none
+>>>>>>> branch 'main' of https://github.com/dantepizarro/Taller2.git
