@@ -206,7 +206,7 @@ public class Taller2 {
 			System.out.println("6) Curar equipo");
 			System.out.println("7) Guardar");
 			System.out.println("8) Guardar y salir");
-			System.out.println(">");
+			System.out.println("> ");
 			opcion = scanner.nextInt();
 			
 			switch (opcion) {
