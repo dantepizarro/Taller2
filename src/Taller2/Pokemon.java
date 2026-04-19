@@ -6,16 +6,17 @@ public class Pokemon {
 	private double PorAparicion;
 	private int Stats;
 	private String Tipo;
+	private String Estado;
 	
 
-	// ya vengo
-	//probemos con hacerla denuevo la sesion, avisame
+	//falta agregar estado
 	public Pokemon(String nombre, String habitat, double porAparicion, int stats, String tipo) {
 		this.nombre = nombre;
 		Habitat = habitat;
 		PorAparicion = porAparicion;
 		Stats = stats;
 		Tipo = tipo;
+		//Estado = estado;
 	}
 
 
@@ -48,10 +49,10 @@ public class Pokemon {
 		return Stats;
 	}
 
-
-	@Override
-	public String toString() {
-		return "Pokemon [nombre=" + nombre + "]";
+	public String getEstado() {
+		return Estado;
 	}
-	
+	public void setEstado(String estado) {
+		Estado=estado;
+	}
 }

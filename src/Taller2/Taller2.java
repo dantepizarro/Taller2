@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Random;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
-import java.net.PortUnreachableException;
+import java.io.IOException;
 
 public class Taller2 {
 	static List<Pokemon> lista_Poke = new ArrayList<>();
@@ -145,6 +145,7 @@ public class Taller2 {
 			System.out.println("1) Continuar");
 			System.out.println("2) Nueva Partida");
 			System.out.println("3) Salir");
+			System.out.print(">");
 			opcion = scanner.nextInt();
 
 			switch (opcion) {
@@ -205,6 +206,7 @@ public class Taller2 {
 			System.out.println("6) Curar equipo");
 			System.out.println("7) Guardar");
 			System.out.println("8) Guardar y salir");
+			System.out.print(">");
 			opcion = scanner.nextInt();
 			
 			switch (opcion) {
@@ -221,6 +223,7 @@ public class Taller2 {
 					System.out.println("5) Prado");
 					System.out.println("6) Mar");
 					System.out.println("7) Regresar al menu");
+					System.out.print(">");
 					int lugar = scanner.nextInt();
 					 Capturar(lugar);
 					break;
@@ -284,6 +287,7 @@ public class Taller2 {
 		
 	}
 	public static void Capturar(int ubicacion ) {
+		Scanner scan = new Scanner(System.in);
 		Random r = new Random();
 		poke_ruta.clear();
 		int cantidad = 0;
@@ -301,7 +305,26 @@ public class Taller2 {
 			Pokemon salvaje = poke_ruta.get(indice);
 			
 			System.out.println("Aparecio un " + salvaje.getNombre());
+			System.out.println();
 			System.out.println("¿Que desea hacer?");
+			System.out.println("1) Capturar");
+			System.out.println("2) Escapar");
+			int opc = scan.nextInt();
+			if (opc == 1) {	
+				try {
+				BufferedWriter bw = new BufferedWriter(new FileWriter("txt/7Registros.txt", true));
+				bw.write(salvaje.getNombre() + "," + salvaje.getStats() + "," + salvaje.getTipo());
+				//hay que hacer que tengan un estado
+				bw.newLine();
+				bw.close();
+				
+				}catch(Exception e) {
+					
+				}
+			}else {
+				System.out.println("Has escapado con exito");
+				System.out.println();
+			}
 			//falra hacer las acciones capturar o escapar
 		
 			MenuPrincipal();
