@@ -297,7 +297,13 @@ public class Taller2 {
 					}
 				}
 			}
-			System.out.println(poke_ruta.get(0).getNombre());
+			int indice = r.nextInt(poke_ruta.size());
+			Pokemon salvaje = poke_ruta.get(indice);
+			
+			System.out.println("Aparecio un " + salvaje.getNombre());
+			System.out.println("¿Que desea hacer?");
+			//falra hacer las acciones capturar o escapar
+		
 			MenuPrincipal();
 		}
 	
