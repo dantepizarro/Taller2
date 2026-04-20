@@ -21,7 +21,7 @@ public class Taller2 {
 	static List<Pokemon> PC = new ArrayList<>(); 
 	static List<String> habitats = new ArrayList<>();
 	static List<Pokemon> poke_ruta = new ArrayList<>();
-	static List<Pokemon> Equipo = new ArrayList<>();
+
 
 	public static void main(String[] args) {
 		
@@ -56,7 +56,6 @@ public class Taller2 {
 		}
 
 		File ArchAltoMando = new File("txt\\Alto Mando.txt");
-		System.out.println(ArchAltoMando.exists());
 		try {
 			BufferedReader lector = new BufferedReader(new FileReader(ArchAltoMando));
 			
@@ -95,7 +94,6 @@ public class Taller2 {
 				String[] partes = linea.split(";");
 				int Numero = Integer.parseInt(partes[0]);
 				String Nombre = partes[1];
-				System.out.println(Nombre);
 				String Estado = partes[2];
 				int Cantidad = Integer.parseInt(partes[3]);
 				EquipoLider.clear();
@@ -183,13 +181,13 @@ public class Taller2 {
 				String Estado = partes[1];
 				for(int i = 0;i<lista_Poke.size();i++) {
 					if(NombrePokemon.equals(lista_Poke.get(i).getNombre())){
-						Equipo.add(lista_Poke.get(i));
-						System.out.println(Equipo.size());
+						PC.add(lista_Poke.get(i));
+						
 					}
 				}
 				
 			}	
-		} catch (Exception e) {
+		} catch (IOException e) {
 			System.out.println("Problemas con el archivo Registros");
 		}
 		
@@ -217,7 +215,7 @@ public class Taller2 {
 					ElegirZona();
 					break;
 				case 3:
-					// PC
+					VerPC();
 					break;
 				case 4:
 					// Gimnasios
@@ -241,9 +239,8 @@ public class Taller2 {
 	
 	public static void RevisarEquipo() {
 		System.out.println("Equipo Actual:");
-		System.out.println(Equipo.size());
-		for(int i = 0;i<Equipo.size();i++) {
-			System.out.printf("%d) %s|%s|Stats totales: %s",i+1,Equipo.get(i).getNombre(),Equipo.get(i).getTipo(),Equipo.get(i).getStats());
+		for(int i = 0;i<6;i++) {
+			System.out.printf("%d) %s|%s|Stats totales: %s",i+1,PC.get(i).getNombre(),PC.get(i).getTipo(),PC.get(i).getStats());
 			System.out.println();
 		}
 	}
@@ -328,7 +325,7 @@ public class Taller2 {
 		int opc = scan.nextInt();
 		switch(opc) {
 		case 1:
-			if(Equipo.size() >= 6) {
+			if(PC.size() >= 6) {
 				try {
 					BufferedWriter bw = new BufferedWriter(new FileWriter("txt/Registros.txt",true));
 					bw.write(salvaje.getNombre() + ";" + salvaje.getEstado());
@@ -350,11 +347,12 @@ public class Taller2 {
 				try {
 					BufferedWriter bw = new BufferedWriter(new FileWriter("txt/Registros.txt",true));
 					bw.write(salvaje.getNombre() + ";" + salvaje.getEstado());
+					bw.newLine();
 					bw.close();
 					
 					
 					System.out.printf("%s capturado con exito!!\n",salvaje.getNombre());
-					Equipo.add(salvaje);
+					PC.add(salvaje);
 					System.out.printf("%s ha sido agregado a tu equipo!",salvaje.getNombre());
 				}catch (Exception e) {
 					System.out.println("Problemas reescribiendo el archivo registros");
@@ -366,5 +364,19 @@ public class Taller2 {
 			System.out.println();
 			ElegirZona();
 		}
+	}
+	
+	public static void VerPC() {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("--------Equipo--------");
+		for(int i = 0;i<PC.size();i++) {
+			if(i == 6) {
+				System.out.println("------PC------");
+			}
+			System.out.printf("%d) %s\n",i+1,PC.get(i).getNombre());
+		}
+		
+		
+		
 	}
 }

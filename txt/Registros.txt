@@ -3,4 +3,6 @@ Psyduck;vivo
 Floatzel;vivo
 Steelix;vivo
 Centiskorch;vivo
-
+Seismitoad;vivo
+Porygon-Z;vivo
+Slugma;vivo
