@@ -3,22 +3,19 @@ package Taller2;
 import java.util.List;
 
 public class Jugador {
-	private String usuario;
+	private String jugador;
 	private List<String> Ficha;
 	private List<Pokemon> PC;
-	private List<Pokemon> Equipo;
-	
-	public Jugador(String usuario, List<String> ficha, List<Pokemon> pC, List<Pokemon> equipo) {
-		this.usuario = usuario;
+	public Jugador(String jugador, List<String> ficha, List<Pokemon> pC) {
+		this.jugador = jugador;
 		Ficha = ficha;
 		PC = pC;
-		Equipo = equipo;
 	}
-	public String getUsuario() {
-		return usuario;
+	public String getJugador() {
+		return jugador;
 	}
-	public void setUsuario(String usuario) {
-		this.usuario = usuario;
+	public void setJugador(String jugador) {
+		this.jugador = jugador;
 	}
 	public List<String> getFicha() {
 		return Ficha;
@@ -32,12 +29,10 @@ public class Jugador {
 	public void setPC(List<Pokemon> pC) {
 		PC = pC;
 	}
-	public List<Pokemon> getEquipo() {
-		return Equipo;
-	}
-	public void setEquipo(List<Pokemon> equipo) {
-		Equipo = equipo;
-	}
+	
+	
+	
+	
 	
 	
 }

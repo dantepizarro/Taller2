@@ -21,7 +21,7 @@ public class Taller2 {
 	static List<Pokemon> PC = new ArrayList<>(); 
 	static List<String> habitats = new ArrayList<>();
 	static List<Pokemon> poke_ruta = new ArrayList<>();
-
+	
 
 	public static void main(String[] args) {
 		
@@ -186,7 +186,8 @@ public class Taller2 {
 					}
 				}
 				
-			}	
+			}
+			
 		} catch (IOException e) {
 			System.out.println("Problemas con el archivo Registros");
 		}
@@ -375,6 +376,15 @@ public class Taller2 {
 			}
 			System.out.printf("%d) %s\n",i+1,PC.get(i).getNombre());
 		}
+		
+		System.out.println("Ingrese el numero del primer pokemon");
+		System.out.println(">");
+		int indice1 = scanner.nextInt();
+		
+		System.out.println("Ingrese el numero del segundo pokemon");
+		System.out.println(">");
+		int indice2 = scanner.nextInt();
+		
 		
 		
 		
