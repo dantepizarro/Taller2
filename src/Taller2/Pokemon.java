@@ -10,7 +10,7 @@ public class Pokemon {
 	
 
 
-	//falta agregar estado
+	
 	public Pokemon(String nombre, String habitat, double porAparicion, int stats, String tipo, String estado) {
 
 		this.nombre = nombre;

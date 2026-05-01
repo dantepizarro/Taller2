@@ -1,5 +1,6 @@
 package Taller2;
 import java.util.List;
+import java.util.ArrayList;
 
 public class Lider {
 	private int Numero;
@@ -13,7 +14,7 @@ public class Lider {
 		NombreLider = nombreLider;
 		Estado = estado;
 		Cantidad = cantidad;
-		EquipoLider = equipoLider;
+		EquipoLider = new ArrayList<>(equipoLider);
 	}
 
 	public int getNumero() {

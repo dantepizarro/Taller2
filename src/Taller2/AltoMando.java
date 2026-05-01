@@ -1,5 +1,6 @@
 package Taller2;
 import java.util.List;
+import java.util.ArrayList;
 
 public class AltoMando {
 	private int numero;
@@ -9,7 +10,7 @@ public class AltoMando {
 	public AltoMando(int numero, String nombre, List<Pokemon> equipoAM) {
 		this.numero = numero;
 		NombreAltoMando = nombre;
-		EquipoAM = equipoAM;
+		EquipoAM = new ArrayList<>(equipoAM);
 	}
 
 	public int getNumero() {

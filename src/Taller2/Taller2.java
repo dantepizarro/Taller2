@@ -369,6 +369,11 @@ public class Taller2 {
 	
 	public static void VerPC() {
 		Scanner scanner = new Scanner(System.in);
+		
+		if(PC.isEmpty()) {
+			System.out.println("No tienes pokemon");
+			return;
+		}
 		System.out.println("--------Equipo--------");
 		for(int i = 0;i<PC.size();i++) {
 			if(i == 6) {
@@ -376,15 +381,31 @@ public class Taller2 {
 			}
 			System.out.printf("%d) %s\n",i+1,PC.get(i).getNombre());
 		}
-		
-		System.out.println("Ingrese el numero del primer pokemon");
+		System.out.println("Desea cambiar pokemons?");
 		System.out.println(">");
-		int indice1 = scanner.nextInt();
+		String opcion = scanner.nextLine();
 		
-		System.out.println("Ingrese el numero del segundo pokemon");
-		System.out.println(">");
-		int indice2 = scanner.nextInt();
-		
+		if(opcion.equalsIgnoreCase("si")) {
+			System.out.println("Ingrese el numero del primer pokemon");
+			System.out.println(">");
+			int indice1 = scanner.nextInt() - 1;
+			
+			System.out.println("Ingrese el numero del segundo pokemon");
+			System.out.println(">");
+			int indice2 = scanner.nextInt() - 1;
+			
+			if(indice1 < 0 || indice2 < 0 || indice1 >= PC.size() || indice2 >= PC.size()) {
+				System.out.println("indices invalidos");
+				return;
+			}
+			
+			Pokemon temp = PC.get(indice1);
+			PC.set(indice1, PC.get(indice2));
+			PC.set(indice2, temp);
+			System.out.println("Pokemon intercambiados con exito!");
+			
+			
+		}
 		
 		
 		
