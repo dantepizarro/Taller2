@@ -240,9 +240,17 @@ public class Taller2 {
 	
 	public static void RevisarEquipo() {
 		System.out.println("Equipo Actual:");
-		for(int i = 0;i<6;i++) {
-			System.out.printf("%d) %s|%s|Stats totales: %s",i+1,PC.get(i).getNombre(),PC.get(i).getTipo(),PC.get(i).getStats());
-			System.out.println();
+		if(PC.size() < 6) {
+			for(int i = 0;i<PC.size();i++) {
+				System.out.printf("%d) %s|%s|Stats totales: %s",i+1,PC.get(i).getNombre(),PC.get(i).getTipo(),PC.get(i).getStats());
+				System.out.println();
+			}
+		}else {
+			for(int i = 0;i<6;i++) {
+				System.out.printf("%d) %s|%s|Stats totales: %s",i+1,PC.get(i).getNombre(),PC.get(i).getTipo(),PC.get(i).getStats());
+				System.out.println();
+			}
+			
 		}
 	}
 	
@@ -259,6 +267,7 @@ public class Taller2 {
 		System.out.println("7) Regresar al menu");
 		System.out.println(">");
 		int lugar = scanner.nextInt();
+		if(lugar == 7) return;
 		 Capturar(lugar);
 	}
 
@@ -342,7 +351,7 @@ public class Taller2 {
 				}catch (Exception e) {
 					System.out.println("Problemas reescribiendo el archivo registros");
 				}
-				MenuPrincipal();
+				
 			}else {
 				
 				try {
@@ -354,18 +363,21 @@ public class Taller2 {
 					
 					System.out.printf("%s capturado con exito!!\n",salvaje.getNombre());
 					PC.add(salvaje);
-					System.out.printf("%s ha sido agregado a tu equipo!",salvaje.getNombre());
+					System.out.printf("%s ha sido agregado a tu equipo!\n",salvaje.getNombre());
 				}catch (Exception e) {
 					System.out.println("Problemas reescribiendo el archivo registros");
 				}
-				MenuPrincipal();
+				
 			}
+			break;
 		case 2:
 			System.out.println("Has escapado con exito");
 			System.out.println();
 			ElegirZona();
+			break;
 		}
 	}
+	
 	
 	public static void VerPC() {
 		Scanner scanner = new Scanner(System.in);
