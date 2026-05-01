@@ -373,6 +373,7 @@ public class Taller2 {
 		if(PC.isEmpty()) {
 			System.out.println("No tienes pokemon");
 			return;
+			
 		}
 		System.out.println("--------Equipo--------");
 		for(int i = 0;i<PC.size();i++) {

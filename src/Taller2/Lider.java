@@ -15,6 +15,7 @@ public class Lider {
 		Estado = estado;
 		Cantidad = cantidad;
 		EquipoLider = new ArrayList<>(equipoLider);
+		
 	}
 
 	public int getNumero() {

@@ -11,6 +11,7 @@ public class AltoMando {
 		this.numero = numero;
 		NombreAltoMando = nombre;
 		EquipoAM = new ArrayList<>(equipoAM);
+		
 	}
 
 	public int getNumero() {
