@@ -290,8 +290,7 @@ public class Taller2 {
 				BufferedWriter bw = new BufferedWriter(new FileWriter("txt\\Registros.txt"));
 				
 				bw.write(Jugador + ";" + Medallas);
-				
-				
+				bw.newLine();				
 				bw.close();
 				
 				System.out.println("Nueva partida creada con exito");
