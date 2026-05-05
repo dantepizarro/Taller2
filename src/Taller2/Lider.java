@@ -37,5 +37,15 @@ public class Lider {
 	public List<Pokemon> getEquipoLider() {
 		return EquipoLider;
 	}
+
+	public void setEstado(String estado) {
+		Estado = estado;
+	}
+	public boolean estaDisponible() {
+		return Estado.equals("Sin derrotar");
+	}
+	public String toString() {
+		return Numero + ")" + NombreLider + "- Estado: " + Estado;
+	}
 	
 }

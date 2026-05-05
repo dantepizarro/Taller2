@@ -1,6 +1,7 @@
 package Taller2;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.io.FileReader;
 import java.io.BufferedReader;
@@ -21,6 +22,7 @@ public class Taller2 {
 	static List<Pokemon> PC = new ArrayList<>(); 
 	static List<String> habitats = new ArrayList<>();
 	static List<Pokemon> poke_ruta = new ArrayList<>();
+	static String nombreJugador;
 	
 
 	public static void main(String[] args) {
@@ -170,7 +172,8 @@ public class Taller2 {
 			
 			if((linea = lector.readLine()) != null) {
 				String[] partes = linea.split(";");
-				Ficha.add(partes[0]);
+				nombreJugador = partes[0];
+				
 				for(int i = 1;i<partes.length; i++) {
 					Ficha.add(partes[i]);
 				}
@@ -185,7 +188,7 @@ public class Taller2 {
 						
 					}
 				}
-				
+				Jugador jugador = new Jugador(nombreJugador,Ficha,PC);
 			}
 			
 		} catch (IOException e) {
@@ -195,8 +198,8 @@ public class Taller2 {
 		int opcion;
 		do {
 			
-			System.out.printf("Bienvenido %s !!\n",Ficha.get(0));
-			System.out.printf("%s, que deseas hacer?\n", Ficha.get(0));
+			System.out.printf("Bienvenido %s !!\n",nombreJugador);
+			System.out.printf("%s, que deseas hacer?\n", nombreJugador);
 			System.out.println("1) Revisar equipo");
 			System.out.println("2) Salir a capturar");
 			System.out.println("3) Acceso al PC (cambiar Pokemon del equipo)");
@@ -225,14 +228,14 @@ public class Taller2 {
 					// Alto mando
 					break;
 				case 6:
-					// Curar
+					Curar();
 					break;
 				case 7:
-					// Guardar
+					Guardar();
 					break;
 				case 8:
-					// GuardarYsalir
-					break;
+					Guardar();
+					return;
 
 			}
 		} while (opcion != 8);
@@ -290,7 +293,7 @@ public class Taller2 {
 				BufferedWriter bw = new BufferedWriter(new FileWriter("txt\\Registros.txt"));
 				
 				bw.write(Jugador + ";" + Medallas);
-				
+				bw.newLine();
 				
 				bw.close();
 				
@@ -315,16 +318,33 @@ public class Taller2 {
 			for( int i = 0; i< lista_Poke.size();i++) {
 				Pokemon pokemon_actual = lista_Poke.get(i);
 				
+				
 				if(pokemon_actual.getHabitat().equalsIgnoreCase(habitats.get(ubicacion-1))) {
 					int aparicion = (int)(pokemon_actual.getPorAparicion()*100);
 					for(int a = 0;a<aparicion;a++) {
 						poke_ruta.add(pokemon_actual);
+						
 					}
 				}
 		}
 			
+		boolean todosCapturados = true;
+		for(Pokemon pk: poke_ruta) {
+			if(!Jugador.tienePokemon(pk.getNombre())) {
+				todosCapturados = false;
+				break;
+			}
+		}
+		
+		if(todosCapturados) {
+			System.out.println("ya capturaste a todos los pokemones de esta zona");
+			return;
+		}
+			
 		int indice = r.nextInt(poke_ruta.size());
 		Pokemon salvaje = poke_ruta.get(indice);
+		
+		
 		
 		System.out.println("Aparecio un " + salvaje.getNombre());
 		System.out.println();
@@ -335,6 +355,11 @@ public class Taller2 {
 		int opc = scan.nextInt();
 		switch(opc) {
 		case 1:
+			if(Jugador.tienePokemon(salvaje.getNombre())) {
+				System.out.println("Ya tienes un " + salvaje.getNombre());
+				break;
+			}
+			
 			if(PC.size() >= 6) {
 				try {
 					BufferedWriter bw = new BufferedWriter(new FileWriter("txt/Registros.txt",true));
@@ -416,11 +441,39 @@ public class Taller2 {
 			PC.set(indice1, PC.get(indice2));
 			PC.set(indice2, temp);
 			System.out.println("Pokemon intercambiados con exito!");
-			
+			Guardar();
 			
 		}
 		
 		
 		
+	}
+	public static void Guardar() {
+		try {
+			BufferedWriter bw = new BufferedWriter(new FileWriter("txt\\Registros.txt"));
+			
+			bw.write(nombreJugador);
+			for(int i = 0;i<Ficha.size();i++) {
+				bw.write(";" + Ficha.get(i));
+			}
+			bw.newLine();
+			
+			for(Pokemon pk: PC) {
+				bw.write(pk.getNombre() + ";" + pk.getEstado());
+				bw.newLine();
+			}
+			
+			bw.close();
+			System.out.println("Partida Guardada!");
+			
+		}catch(Exception e) {
+			System.out.println("error con el archivo registros");
+		}
+	}
+	public static void Curar() {
+		for(Pokemon pk : PC) {
+			pk.setEstado("Vivo");
+		}
+		System.out.println("Tu equipo se ha recuperado");
 	}
 }
