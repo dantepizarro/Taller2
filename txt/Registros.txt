@@ -1,2 +1,11 @@
-toño;none
-Quagsire;vivo
+tonito;none
+Psyduck;vivo
+Groudon;vivo
+Lapras;vivo
+Dracovish;vivo
+Samurott;vivo
+Wailord;vivo
+Kingler;vivo
+Cloyster;vivo
+Tentacruel;vivo
+Dragapult;vivo
