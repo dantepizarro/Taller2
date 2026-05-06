@@ -55,14 +55,12 @@ public class Taller2 {
 			System.out.println("Problemas con el archivo pokedex");
 		}
 
-		File ArchAltoMando = new File("txt\\Alto Mando.txt");
-		try {
-			BufferedReader lector = new BufferedReader(new FileReader(ArchAltoMando));
-			
-			String linea;
 
-			while ((linea = lector.readLine()) != null) {
-				String[] partes = linea.split(";");
+		try {
+			scan = new Scanner(new File("txt\\Alto Mando.txt"));
+
+			while ((scan.hasNextLine())) {
+				String[] partes = scan.nextLine().split(";");
 				EquipoAM.clear();
 				int Numero = Integer.parseInt(partes[0]);
 				String NombreAltoMando = partes[1];
@@ -85,13 +83,11 @@ public class Taller2 {
 			System.out.println("problemas con el archivo Alto Mando");
 		}
 
-		File ArchGimnasios = new File("txt\\Gimnasios.txt");
 		try {
-			BufferedReader lector = new BufferedReader(new FileReader(ArchGimnasios));
-			String linea;
+			scan = new Scanner(new File("txt\\Lider.txt"));
 
-			while ((linea = lector.readLine()) != null) {
-				String[] partes = linea.split(";");
+			while ((scan.hasNextLine())) {
+				String[] partes = scan.nextLine().split(";");
 				int Numero = Integer.parseInt(partes[0]);
 				String Nombre = partes[1];
 				String Estado = partes[2];
@@ -115,13 +111,11 @@ public class Taller2 {
 			System.out.println("problemas con el archivo Gimnasios");
 		}
 
-		File ArchHabitats = new File("txt\\Habitats.txt");
 		try {
-			BufferedReader lector = new BufferedReader(new FileReader(ArchHabitats));
-			String linea;
+			scan = new Scanner(new File("txt\\Habitats.txt"));
 
-			while ((linea = lector.readLine()) != null) {
-				String Habitat = linea;
+			while ((scan.hasNextLine()) {
+				String Habitat = scan.nextLine();
 				habitats.add(Habitat);
 
 			}
@@ -160,24 +154,21 @@ public class Taller2 {
 	}
 
 	public static void MenuPrincipal() {
-		Scanner scanner = new Scanner(System.in);
-		
-		File Partida = new File("txt\\Registros.txt");
+		Scanner scan;
 
 		try {
-			BufferedReader lector = new BufferedReader(new FileReader(Partida));
-			String linea;
+			scan = new Scanner(new File("txt\\Registros.txt"));
 			
-			if((linea = lector.readLine()) != null) {
-				String[] partes = linea.split(";");
+			if((scan.hasNextLine())) {
+				String[] partes = scan.nextLine().split(";");
 				nombreJugador = partes[0];
 				
 				for(int i = 1;i<partes.length; i++) {
 					Ficha.add(partes[i]);
 				}
 			}
-			while ((linea = lector.readLine()) != null) {
-				String[] partes = linea.split(";");
+			while ((scan.hasNextLine())) {
+				String[] partes = scan.nextLine().split(";");
 				String NombrePokemon = partes[0];
 				String Estado = partes[1];
 				for(int i = 0;i<lista_Poke.size();i++) {
