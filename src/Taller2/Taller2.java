@@ -12,6 +12,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 
+
 public class Taller2 {
 	static List<Pokemon> lista_Poke = new ArrayList<>();
 	static List<Pokemon> EquipoAM = new ArrayList<>();
@@ -293,8 +294,9 @@ public class Taller2 {
 				BufferedWriter bw = new BufferedWriter(new FileWriter("txt\\Registros.txt"));
 				
 				bw.write(Jugador + ";" + Medallas);
-				bw.newLine();
 				
+				
+				bw.newLine();
 				bw.close();
 				
 				System.out.println("Nueva partida creada con exito");
@@ -475,5 +477,6 @@ public class Taller2 {
 			pk.setEstado("Vivo");
 		}
 		System.out.println("Tu equipo se ha recuperado");
+		
 	}
 }
