@@ -28,17 +28,14 @@ public class Taller2 {
 
 	public static void main(String[] args) {
 		
-		Scanner scanner = new Scanner(System.in);
-		
-		
-		File ArchPokedex = new File("txt\\Pokedex.txt");
+		Scanner scan;
 		
 		try {
-			BufferedReader lector = new BufferedReader(new FileReader(ArchPokedex));
+			scan = new Scanner(new File("txt\\Pokedex.txt"));
 			String linea;
 			
-			while ((linea = lector.readLine()) != null) {
-				String[] partes = linea.split(";");
+			while ((scan.hasNextLine())){
+				String[] partes = scan.nextLine().split(";");
 				String Nombre = partes[0];
 				String habitat = partes[1];
 				double spawnrate = Double.parseDouble(partes[2]);
