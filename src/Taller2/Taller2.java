@@ -1,10 +1,7 @@
 package Taller2;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.io.FileReader;
-import java.io.BufferedReader;
 import java.util.Scanner;
 import java.util.List;
 import java.util.Random;
@@ -84,7 +81,7 @@ public class Taller2 {
 		}
 
 		try {
-			scan = new Scanner(new File("txt\\Lider.txt"));
+			scan = new Scanner(new File("txt\\Gimnasios.txt"));
 
 			while ((scan.hasNextLine())) {
 				String[] partes = scan.nextLine().split(";");
@@ -114,7 +111,7 @@ public class Taller2 {
 		try {
 			scan = new Scanner(new File("txt\\Habitats.txt"));
 
-			while ((scan.hasNextLine()) {
+			while ((scan.hasNextLine())) {
 				String Habitat = scan.nextLine();
 				habitats.add(Habitat);
 
@@ -177,7 +174,6 @@ public class Taller2 {
 						
 					}
 				}
-				Jugador jugador = new Jugador(nombreJugador,Ficha,PC);
 			}
 			
 		} catch (IOException e) {
@@ -185,7 +181,9 @@ public class Taller2 {
 		}
 		
 		int opcion;
+		Scanner scanner = new Scanner(System.in);
 		do {
+			Jugador jugador = new Jugador(nombreJugador,Ficha,PC);
 			
 			System.out.printf("Bienvenido %s !!\n",nombreJugador);
 			System.out.printf("%s, que deseas hacer?\n", nombreJugador);
@@ -211,7 +209,7 @@ public class Taller2 {
 					VerPC();
 					break;
 				case 4:
-					// Gimnasios
+					Gimnasios(jugador);
 					break;
 				case 5:
 					// Alto mando
@@ -466,6 +464,95 @@ public class Taller2 {
 		}
 		System.out.println("Tu equipo se ha recuperado");
 		
+	}
+	public static void Gimnasios(Jugador jugador){
+
+		Scanner scan = new Scanner(System.in);
+		int opcion;
+		for(int i = 0;i<Lideres.size();i++){
+			System.out.println(Lideres.get(i).toString());
+		}
+		System.out.println("9) Volver al menu.");
+		System.out.print(">");
+		opcion = scan.nextInt();
+		if(PC.size()== 0) {
+			System.out.println("no puedes enfrentarte a un lider sin pokemones");
+			return;
+		}
+		if(opcion == 9){
+			return;
+		}else{
+			if(opcion == 1 && Lideres.get(opcion -1).estaDisponible()){
+				Batalla(jugador,Lideres.get(opcion-1));
+			}else{
+				for(int i = 1;i<opcion;i++){
+					if(Lideres.get(i).getEstado().equalsIgnoreCase("Sin derrotar")){
+						System.out.printf("Calmado entrenador!!! no puedes retar a %s sin haber derrotado a los lideres anteriores!!\n",Lideres.get(opcion-1).getNombreLider());
+						return;
+					}
+				}
+
+			}
+		}
+		
+	}
+	public static void Batalla(Jugador jugador, Lider lider){
+		Scanner scan = new Scanner(System.in);
+		boolean Pokemonvivo = true;
+		for(int i = 0;i<EquipoLider.size();i++){
+			for(int j = 0;j<PC.size();j++){
+				if(!PC.get(i).getEstado().equalsIgnoreCase("vivo")){
+					Pokemonvivo = false;
+				}
+			}
+
+			if(!Pokemonvivo){
+				System.out.println("te has quedado sin pokemones en tu equipo");
+				return;
+			}else{
+
+		}
+
+
+		System.out.printf("%s saca a %s!\n",lider.getNombreLider(),lider.getEquipoLider().get(i).getNombre());
+		System.out.printf("%s saca a %s!\n",jugador.getJugador(),jugador.getPC().get(i).getNombre());
+		int opcion;
+		do{
+			System.out.println("Que deseas hacer?");
+			System.out.println("1) Atacar");
+			System.out.println("2) Cambiar de pokemon");
+			System.out.println("3) Rendirse");
+			System.out.println(">");
+			opcion = scan.nextInt();
+			switch (opcion) {
+				case 1:
+					System.out.printf("%s -> %d puntos",PC.get(i).getNombre(),PC.get(i).getStats());
+					System.out.printf("%s -> %d puntos",EquipoLider.get(i).getNombre(),EquipoLider.get(i).getStats());
+					double EFECTIVIDAD = TablaTipo.getEfectividad(PC.get(i).getTipo(), EquipoLider.get(i).getTipo());
+					if(EFECTIVIDAD == 1.0){
+						System.out.printf("%s es neutro contra %s",PC.get(i).getNombre(),EquipoLider.get(i).getNombre());
+						System.out.println("Nuevo Puntaje:");
+						System.out.printf("%s -> %d puntos",PC.get(i).getStats()*EFECTIVIDAD);
+						System.out.printf("%s -> %d puntos",EquipoLider.get(i).getNombre(),EquipoLider.get(i).getStats());
+						if(PC.get(i).getStats()*EFECTIVIDAD>EquipoLider.get(i).getStats()){
+							System.out.printf("Ha ganado %s! %s ha sido derrotado",PC.get(i).getNombre(),EquipoLider.get(i).getNombre());
+							EquipoLider.get(i).setEstado("Debilitado");
+						}else if(PC.get(i).getStats()*EFECTIVIDAD<EquipoLider.get(i).getStats()){
+							System.out.printf("ha ganado %s! %s ha sido derrotado",EquipoLider.get(i).getNombre(),PC.get(i).getNombre());
+							PC.get(i).setEstado("Debilitado");
+						}
+					}
+					break;
+			
+				default:
+					System.out.println("opcion no valida");
+					break;
+			
+				}
+			}while(opcion != 3);
+
+
+		}
 	}
 
 }

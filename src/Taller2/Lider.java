@@ -45,7 +45,7 @@ public class Lider {
 		return Estado.equals("Sin derrotar");
 	}
 	public String toString() {
-		return Numero + ")" + NombreLider + "- Estado: " + Estado;
+		return Numero + ")" + NombreLider + " - Estado: " + Estado;
 	}
 	
 }
