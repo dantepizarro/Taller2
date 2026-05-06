@@ -479,4 +479,6 @@ public class Taller2 {
 		System.out.println("Tu equipo se ha recuperado");
 		
 	}
+
 }
+
