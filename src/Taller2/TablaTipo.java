@@ -1,8 +1,14 @@
 package Taller2;
 
+
 public class TablaTipo {
 
-	// Matriz de efectividad
+	
+	private static String[] TIPOS = {"Normal", "Fuego", 
+			"Agua", "Planta", "Electrico", "Hielo",
+			"Lucha", "Veneno", "Tierra", "Volador",
+			"Psiquico", "Bicho","Roca", "Fantasma", 
+			"Dragon", "Acero", "Siniestro", "Hada"};
     private static final double[][] EFECTIVIDAD = {
         // NOR  FUE  AGU  PLA  ELE  HIE  LUC  VEN  TIE  VOL  PSI  BIC  ROC  FAN  DRA  ACE  SIN  HAD
         {  1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.5, 0.0, 1.0, 0.5, 1.0, 1.0 }, // NORMAL
@@ -24,4 +30,17 @@ public class TablaTipo {
         {  1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 0.5, 1.0, 1.0, 1.0, 2.0, 1.0, 1.0, 2.0, 1.0, 1.0, 0.5, 0.5 }, // SINIESTRO
         {  1.0, 0.5, 1.0, 1.0, 1.0, 1.0, 2.0, 0.5, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 2.0, 0.5, 2.0, 1.0 }  // HADA
     };
+   public static double getEfectividad(String tipoAtacante, String tipoDefensor) {
+	   int fila = -1;
+	   int columna = -1;
+	   for(int i = 0;i<TIPOS.length;i++) {
+		   if(TIPOS[i].equalsIgnoreCase(tipoAtacante)) {
+			   fila = i;
+		   }
+		   if(TIPOS[i].equalsIgnoreCase(tipoDefensor)) {
+			   columna = i;
+		   }
+	   }
+	   return EFECTIVIDAD[fila][columna];
+   }
 }

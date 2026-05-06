@@ -5,7 +5,7 @@ import java.util.List;
 public class Jugador {
 	private String jugador;
 	private List<String> Ficha;
-	private List<Pokemon> PC;
+	private static List<Pokemon> PC;
 	public Jugador(String jugador, List<String> ficha, List<Pokemon> pC) {
 		this.jugador = jugador;
 		Ficha = ficha;
@@ -29,10 +29,12 @@ public class Jugador {
 	public void setPC(List<Pokemon> pC) {
 		PC = pC;
 	}
-	
-	
-	
-	
+	public static boolean tienePokemon(String nombre) {
+		for(Pokemon pk: PC) {
+			if(pk.getNombre().equalsIgnoreCase(nombre)) return true;
+		}
+		return false;
+	}
 	
 	
 }
