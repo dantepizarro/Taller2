@@ -497,25 +497,39 @@ public class Taller2 {
 		
 	}
 	public static void Batalla(Jugador jugador, Lider lider){
+
+		//cambie un poco la logica, para no trabajar con el for, basicamente iremos por indices de cada equipo, muere nuestro pokemon, se suma uno al indice y sale el siguiente
+		//y por cada ataca se verifica si fue el ultimo, y termina
+
 		Scanner scan = new Scanner(System.in);
-		boolean Pokemonvivo = true;
-		for(int i = 0;i<EquipoLider.size();i++){
-			for(int j = 0;j<PC.size();j++){
-				if(!PC.get(i).getEstado().equalsIgnoreCase("vivo")){
-					Pokemonvivo = false;
-				}
+		//verificamos que tenga algun pokemon
+		if(PC.size() == 0){
+			System.out.println("No tienes Pokemon para combatir");
+			return;
+		}
+		//verificamos que el primero este vivo
+		boolean pokemonvivo = false;
+		for(int i = 0;i<PC.size() && i<6;i++){
+			if(PC.get(i).estaVivo()){
+				pokemonvivo = true;
+				break;
 			}
-
-			if(!Pokemonvivo){
-				System.out.println("te has quedado sin pokemones en tu equipo");
-				return;
-			}else{
-
+		}
+		if(!pokemonvivo) {
+			System.out.println("Deberias curar a tus pokemon primero");
+			return;
 		}
 
 
-		System.out.printf("%s saca a %s!\n",lider.getNombreLider(),lider.getEquipoLider().get(i).getNombre());
-		System.out.printf("%s saca a %s!\n",jugador.getJugador(),jugador.getPC().get(i).getNombre());
+		int indiceLider = 0;
+		int indiceJugador= 0;
+		//guardamos el pokemon actual de cada uno para no escribir tanto
+		Pokemon pkLider = EquipoLider.get(indiceLider);
+		Pokemon pkJugador = PC.get(indiceJugador);
+
+
+		System.out.printf("%s saca a %s!\n",lider.getNombreLider(),pkLider.getNombre());
+		System.out.printf("%s saca a %s!\n",jugador.getJugador(),pkJugador.getNombre());
 		int opcion;
 		do{
 			System.out.println("Que deseas hacer?");
@@ -526,24 +540,57 @@ public class Taller2 {
 			opcion = scan.nextInt();
 			switch (opcion) {
 				case 1:
-					System.out.printf("%s -> %d puntos",PC.get(i).getNombre(),PC.get(i).getStats());
-					System.out.printf("%s -> %d puntos",EquipoLider.get(i).getNombre(),EquipoLider.get(i).getStats());
-					double EFECTIVIDAD = TablaTipo.getEfectividad(PC.get(i).getTipo(), EquipoLider.get(i).getTipo());
+					System.out.printf("%s -> %d puntos",pkJugador.getNombre(),pkJugador.getStats());
+					System.out.printf("%s -> %d puntos",pkLider.getNombre(),pkLider.getStats());
+
+					//aqui hice el calculo de efectividad, total sera el mismo en cualquie caso
+					double EFECTIVIDAD = TablaTipo.getEfectividad(pkJugador.getTipo(), pkLider.getTipo());
+					int  StatsJugador = (int)(pkJugador.getStats()*EFECTIVIDAD);
+
 					if(EFECTIVIDAD == 1.0){
-						System.out.printf("%s es neutro contra %s",PC.get(i).getNombre(),EquipoLider.get(i).getNombre());
-						System.out.println("Nuevo Puntaje:");
-						System.out.printf("%s -> %d puntos",PC.get(i).getStats()*EFECTIVIDAD);
-						System.out.printf("%s -> %d puntos",EquipoLider.get(i).getNombre(),EquipoLider.get(i).getStats());
-						if(PC.get(i).getStats()*EFECTIVIDAD>EquipoLider.get(i).getStats()){
-							System.out.printf("Ha ganado %s! %s ha sido derrotado",PC.get(i).getNombre(),EquipoLider.get(i).getNombre());
-							EquipoLider.get(i).setEstado("Debilitado");
-						}else if(PC.get(i).getStats()*EFECTIVIDAD<EquipoLider.get(i).getStats()){
-							System.out.printf("ha ganado %s! %s ha sido derrotado",EquipoLider.get(i).getNombre(),PC.get(i).getNombre());
-							PC.get(i).setEstado("Debilitado");
+						System.out.printf("%s es neutro contra %s\n",pkJugador.getNombre(),pkLider.getNombre());
+					}else if(EFECTIVIDAD == 0.5){
+						System.out.printf("%s es poco efectivo contra %s\n",pkJugador.getNombre(),pkLider.getNombre());
+					}else if(EFECTIVIDAD == 2.0){
+						System.out.printf("%s es super efectivo contra %s\n",pkJugador.getNombre(),pkLider.getNombre());
+					}else if(EFECTIVIDAD == 0.0){
+						System.out.printf("%s no afecta a %S\n",pkJugador.getNombre(),pkLider.getNombre());
+					}
+					
+					//se imprimen los nuevos puntajes
+					System.out.println("Nuevo Puntaje:");
+					System.out.printf("%s -> %d puntos\n",pkJugador.getNombre(),StatsJugador);
+					System.out.printf("%s -> %d puntos\n",pkLider.getNombre(),pkLider.getStats());
+
+
+					//si ganamos
+					if(StatsJugador > pkLider.getStats()){
+						System.out.printf("Ha ganado %s! %s ha sido derrotado!\n",pkJugador.getNombre(),pkLider.getNombre());
+						indiceLider++;
+						if(indiceLider >= EquipoLider.size()){
+							System.out.println("Has derrotado a" + lider.getNombreLider() + "Medalla obtenida!!");
+							lider.setEstado("Derrotado");
+							jugador.agregarMedalla(lider.getNombreLider());
+							return;
 						}
+						pkLider = EquipoLider.get(indiceLider);
+						System.out.printf("%s saca a %s!\n",lider.getNombreLider(),pkLider.getNombre());
+					//si perdemos, aun falta ver como hacerlo si empatan
+					}else{
+						System.out.printf("Ha ganado %s! %s ha sido derrotado!\n",pkLider.getNombre(),pkJugador.getNombre());
+						pkJugador.setEstado("Debilitado");
+
+						indiceJugador++;
+						if(indiceJugador>5 || indiceJugador>= PC.size()){
+							System.out.println("Te has quedado sin Pokemons!");
+							System.out.println("Volviendo al menu...");
+							return;
+						}
+						pkJugador = PC.get(indiceJugador);
+						System.out.printf("%s saca a %s!\n",jugador.getJugador(),pkJugador.getNombre());
 					}
 					break;
-			
+			//y toca ahora el case 2 que seria cambiar pokemon
 				default:
 					System.out.println("opcion no valida");
 					break;

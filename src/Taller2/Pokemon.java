@@ -58,6 +58,9 @@ public class Pokemon {
 	public void setEstado(String estado) {
 		Estado = estado;
 	}
+	public boolean estaVivo(){
+		return Estado.equals("Vivo");
+	}
 	
 }
 	
