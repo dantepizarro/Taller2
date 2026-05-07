@@ -513,20 +513,18 @@ public class Taller2 {
 
 		int indiceLider = 0;
 		int indiceJugador= 0;
-		boolean todosDerrotados = false;
-		do {
+		boolean pokemonvivo = false;
+		for(int i = 0;i<PC.size() && i<6;i++){
+			if(PC.get(i).estaVivo()){
+				pokemonvivo = true;
+				break;
+			}
+		}
+		if(!pokemonvivo) {
+			System.out.println("Deberias curar a tus pokemon primero");
+			return;
+		}
 		//guardamos el pokemon actual de cada uno para no escribir tanto
-			boolean pokemonvivo = false;
-			for(int i = 0;i<PC.size() && i<6;i++){
-				if(PC.get(i).estaVivo()){
-					pokemonvivo = true;
-					break;
-				}
-			}
-			if(!pokemonvivo) {
-				System.out.println("Deberias curar a tus pokemon primero");
-				return;
-			}
 		Pokemon pkLider = lider.getEquipoLider().get(indiceLider);
 		Pokemon pkJugador = PC.get(indiceJugador);
 
@@ -578,7 +576,7 @@ public class Taller2 {
 							jugador.agregarMedalla(lider.getNombreLider());
 							return;
 						}
-						pkLider = EquipoLider.get(indiceLider);
+						pkLider =	lider.getEquipoLider().get(indiceLider);
 						System.out.printf("%s saca a %s!\n",lider.getNombreLider(),pkLider.getNombre());
 						
 					//si perdemos, aun falta ver como hacerlo si empatan
@@ -598,6 +596,24 @@ public class Taller2 {
 					
 					break;
 			//y toca ahora el case 2 que seria cambiar pokemon
+			case 2:
+			Scanner scanner = new Scanner(System.in);
+			int indice;
+				for(int i = 0;i<PC.size() && i<6;i++){
+					if(PC.get(i).estaVivo()){
+						System.out.printf("%d) %s\n",i+1,PC.get(i).getNombre());
+					}
+				}
+				System.out.println(">");
+				indice = scanner.nextInt();
+
+				Pokemon temp = PC.get(indiceJugador);
+				PC.set(indiceJugador, PC.get(indice));
+				PC.set(indice, temp);
+				System.out.println("Pokemon intercambiados con exito!");
+				System.out.printf("%s saca a %s!\n",jugador.getJugador(),pkJugador.getNombre());
+
+				break;
 				default:
 					System.out.println("opcion no valida");
 					break;
@@ -606,7 +622,7 @@ public class Taller2 {
 			}while(opcion != 3);
 
 
-		}while(todosDerrotados == true);
+		
 	}
 
 }
