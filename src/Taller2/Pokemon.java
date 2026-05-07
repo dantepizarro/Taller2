@@ -59,7 +59,7 @@ public class Pokemon {
 		Estado = estado;
 	}
 	public boolean estaVivo(){
-		return Estado.equals("Vivo");
+		return Estado.equalsIgnoreCase("Vivo");
 	}
 	
 }

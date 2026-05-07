@@ -1,2 +1,8 @@
 tonito;none
-Whiscash;vivo
+Hydrapple;vivo
+Lucario;vivo
+Aggron;vivo
+Decidueye;vivo
+Dracovish;vivo
+Froslass;vivo
+Azumarill;vivo
