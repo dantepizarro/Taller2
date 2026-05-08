@@ -1,7 +1,2 @@
-dante;EmmaLaArdillaRabiosa;MartinNegro;Ferran;Branco;Remi;Pruno;Dani;Maxi
-Gengar;Vivo
-Tyranitar;Vivo
-Charizard;Vivo
-Cloyster;Vivo
-Sceptile;Vivo
-Aggron;Vivo
+antonio;none
+Slugma;Debilitado

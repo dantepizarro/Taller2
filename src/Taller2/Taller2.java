@@ -146,12 +146,16 @@ public class Taller2 {
 					break;
 				case 3:
 					break;
+				default:
+					System.out.println("Opcion invalida, ingresa 1, 2 o 3.");
+					break;
 			}
 		} while (opcion != 3);
 
 	}
 
 	public static void MenuPrincipal() {
+		
 		Scanner scan;
 
 		try {
@@ -193,7 +197,7 @@ public class Taller2 {
 		Scanner scanner = new Scanner(System.in);
 		do {
 			Jugador jugador = new Jugador(nombreJugador,Ficha,PC);
-			
+			System.out.println();
 			System.out.printf("Bienvenido %s !!\n",nombreJugador);
 			System.out.printf("%s, que deseas hacer?\n", nombreJugador);
 			System.out.println("1) Revisar equipo");
@@ -232,6 +236,9 @@ public class Taller2 {
 				case 8:
 					Guardar();
 					return;
+				default:
+					System.out.println("Opcion invalida, ingresa un numero entre 1 y 8.");
+					break;
 
 			}
 		} while (opcion != 8);
@@ -266,8 +273,12 @@ public class Taller2 {
 		System.out.println("7) Regresar al menu");
 		System.out.println(">");
 		int lugar = scanner.nextInt();
+		if(lugar <1 || lugar > 7) {
+			System.out.println("Zona invalida para capturar.");
+			return;
+		}
 		if(lugar == 7) return;
-		 Capturar(lugar);
+		Capturar(lugar);
 	}
 
 	public static void IngresarJugador() {
@@ -282,7 +293,10 @@ public class Taller2 {
 			
 			System.out.print("Ingrese su nombre de jugador: ");
 			String jugador = scanner.nextLine();
-			
+			if (jugador.isEmpty()) {
+				System.out.println("El nombre no puede estar vacio.");
+				return;
+			}
 			
 			
 			try {
@@ -398,7 +412,11 @@ public class Taller2 {
 			System.out.println();
 			ElegirZona();
 			break;
+		default:
+			System.out.println("Opcion invalida.");
+			break;
 		}
+		
 	}
 	
 	
@@ -417,10 +435,13 @@ public class Taller2 {
 			}
 			System.out.printf("%d) %s\n",i+1,PC.get(i).getNombre());
 		}
-		System.out.println("Desea cambiar pokemons?");
+		System.out.println("Desea cambiar pokemons? (si/no).");
 		System.out.println(">");
 		String opcion = scanner.nextLine();
-		
+		if (!opcion.equalsIgnoreCase("si") && !opcion.equalsIgnoreCase("no")) {
+			System.out.println("Respuesta invalida, escriba si o no.");
+			return;
+		} 
 		if(opcion.equalsIgnoreCase("si")) {
 			System.out.println("Ingrese el numero del primer pokemon");
 			System.out.println(">");
@@ -477,7 +498,22 @@ public class Taller2 {
 		Guardar();
 	}
 	public static void Gimnasios(Jugador jugador){
-
+		
+		boolean pokemonvivo = false;
+		for(int i = 0;i<PC.size() && i<6;i++){
+			if(PC.get(i).estaVivo()){
+				pokemonvivo = true;
+				break;
+			}
+		}
+		if(!pokemonvivo) {
+			System.out.println("Deberias curar a tus pokemon primero");
+			return;
+		}
+		if(PC.size()== 0) {
+			System.out.println("No puedes enfrentarte a un lider sin pokemones");
+			return;
+		}
 		Scanner scan = new Scanner(System.in);
 		int opcion;
 		for(int i = 0;i<Lideres.size();i++){
@@ -486,8 +522,8 @@ public class Taller2 {
 		System.out.println("9) Volver al menu.");
 		System.out.print(">");
 		opcion = scan.nextInt();
-		if(PC.size()== 0) {
-			System.out.println("no puedes enfrentarte a un lider sin pokemones");
+		if (opcion < 1 || opcion > 9) {
+			System.out.println("Lider de gimnasio no encontrado, pruebe un numero entre 1 y 8.");
 			return;
 		}
 		if(opcion == 9){
@@ -495,6 +531,7 @@ public class Taller2 {
 		}else{
 			if(opcion == 1 && Lideres.get(opcion -1).estaDisponible()){
 				BatallaGimnasios(jugador,Lideres.get(opcion-1));
+				return;
 			}
 			if (!Lideres.get(opcion-1).estaDisponible()){
 				System.out.printf("Ya derrotaste a %s!\n",Lideres.get(opcion-1).getNombreLider());
@@ -514,9 +551,7 @@ public class Taller2 {
 	}
 	public static void BatallaGimnasios(Jugador jugador, Lider lider){
 
-		//cambie un poco la logica, para no trabajar con el for, basicamente iremos por indices de cada equipo, muere nuestro pokemon, se suma uno al indice y sale el siguiente
-		//y por cada ataca se verifica si fue el ultimo, y termina
-
+		
 		Scanner scan = new Scanner(System.in);
 		//verificamos que tenga algun pokemon
 		if(PC.size() == 0){
@@ -524,8 +559,6 @@ public class Taller2 {
 			return;
 		}
 		//verificamos que el primero este vivo
-
-
 		int indiceLider = 0;
 		int indiceJugador= 0;
 		boolean pokemonvivo = false;
@@ -604,7 +637,7 @@ public class Taller2 {
 						pkLider =	lider.getEquipoLider().get(indiceLider);
 						System.out.printf("%s saca a %s!\n",lider.getNombreLider(),pkLider.getNombre());
 						
-					//si perdemos, aun falta ver como hacerlo si empatan
+					//si perdemos
 					}else{
 						System.out.printf("Ha ganado %s! %s ha sido derrotado!\n",pkLider.getNombre(),pkJugador.getNombre());
 						pkJugador.setEstado("Debilitado");
