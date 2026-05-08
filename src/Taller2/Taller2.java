@@ -273,14 +273,14 @@ public class Taller2 {
 		if(opcion.equalsIgnoreCase("Si")) {
 			
 			System.out.print("Ingrese su nombre de jugador: ");
-			String Jugador = scanner.nextLine();
+			String jugador = scanner.nextLine();
 			
-			String Medallas = "none";
+			
 			
 			try {
 				BufferedWriter bw = new BufferedWriter(new FileWriter("txt\\Registros.txt"));
 				
-				bw.write(Jugador + ";" + Medallas);
+				bw.write(jugador + ";none");
 				
 				
 				bw.newLine();
@@ -443,6 +443,7 @@ public class Taller2 {
 			
 			bw.write(nombreJugador);
 			for(int i = 0;i<Ficha.size();i++) {
+				
 				bw.write(";" + Ficha.get(i));
 			}
 			bw.newLine();
@@ -570,10 +571,11 @@ public class Taller2 {
 					if(StatsJugador > pkLider.getStats()){
 						System.out.printf("Ha ganado %s! %s ha sido derrotado!\n",pkJugador.getNombre(),pkLider.getNombre());
 						indiceLider++;
-						if(indiceLider >= EquipoLider.size()){
-							System.out.println("Has derrotado a" + lider.getNombreLider() + "Medalla obtenida!!");
+						if(indiceLider >= lider.getEquipoLider().size()){
+							System.out.println("Has derrotado a " + lider.getNombreLider() + " Medalla obtenida!!");
 							lider.setEstado("Derrotado");
 							jugador.agregarMedalla(lider.getNombreLider());
+							Guardar();
 							return;
 						}
 						pkLider =	lider.getEquipoLider().get(indiceLider);
@@ -604,12 +606,25 @@ public class Taller2 {
 						System.out.printf("%d) %s\n",i+1,PC.get(i).getNombre());
 					}
 				}
+				
 				System.out.println(">");
-				indice = scanner.nextInt();
-
-				Pokemon temp = PC.get(indiceJugador);
-				PC.set(indiceJugador, PC.get(indice));
-				PC.set(indice, temp);
+				indice = scanner.nextInt()-1;
+				 if(indice < 0 || indice >= PC.size() || indice >= 6){
+				        System.out.println("Indice invalido.");
+				        break;
+				    }
+				if (PC.get(indice).estaVivo() == false) {
+					System.out.println("Tu pokemon derrotado no puede pelear");
+					break;
+				}
+				if (indiceJugador == indice) {
+					System.out.println("No puedes elegir a tu pokemon activo");
+					break;
+				}
+				 
+				indiceJugador = indice;
+				pkJugador = PC.get(indiceJugador);
+				
 				System.out.println("Pokemon intercambiados con exito!");
 				System.out.printf("%s saca a %s!\n",jugador.getJugador(),pkJugador.getNombre());
 
@@ -617,7 +632,8 @@ public class Taller2 {
 				default:
 					System.out.println("opcion no valida");
 					break;
-			
+				case 3 :
+					System.out.println("Has perdido el combate contra lider "+ lider.getNombreLider());
 				}
 			}while(opcion != 3);
 

@@ -1,8 +1,3 @@
-tonito;none
-Hydrapple;vivo
-Lucario;vivo
-Aggron;vivo
-Decidueye;vivo
-Dracovish;vivo
+sasa;none
 Froslass;vivo
-Azumarill;vivo
+Snorlax;vivo

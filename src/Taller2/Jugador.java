@@ -36,6 +36,7 @@ public class Jugador {
 		return false;
 	}
 	public void agregarMedalla(String nombreLider){
+		Ficha.remove("none");
 		Ficha.add(nombreLider);
 	}
 	
