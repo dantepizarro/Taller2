@@ -1,3 +1,6 @@
-sasa;none
-Froslass;vivo
-Snorlax;vivo
+dante;EmmaLaArdillaRabiosa;EmmaLaArdillaRabiosa
+Aggron;Vivo
+Tyranitar;Vivo
+Charizard;Vivo
+Cloyster;Vivo
+Sceptile;Vivo

@@ -290,7 +290,8 @@ public class Taller2 {
 			}catch (Exception e) {
 				System.out.println("Problemas con crear el archivo Registros");
 			}
-			
+			PC.clear();
+			Ficha.clear();
 			MenuPrincipal();
 		}else {
 			System.out.println("No se creo la nueva partida");
@@ -465,7 +466,7 @@ public class Taller2 {
 			pk.setEstado("Vivo");
 		}
 		System.out.println("Tu equipo se ha recuperado");
-		
+		Guardar();
 	}
 	public static void Gimnasios(Jugador jugador){
 
@@ -486,13 +487,15 @@ public class Taller2 {
 		}else{
 			if(opcion == 1 && Lideres.get(opcion -1).estaDisponible()){
 				Batalla(jugador,Lideres.get(opcion-1));
-			}else{
+			}else if (Lideres.get(opcion-1).estaDisponible()){
 				for(int i = 1;i<opcion;i++){
 					if(Lideres.get(i).getEstado().equalsIgnoreCase("Sin derrotar")){
 						System.out.printf("Calmado entrenador!!! no puedes retar a %s sin haber derrotado a los lideres anteriores!!\n",Lideres.get(opcion-1).getNombreLider());
 						return;
 					}
 				}
+			}else{
+				Batalla(jugador,Lideres.get(opcion-1));
 
 			}
 		}
@@ -518,6 +521,7 @@ public class Taller2 {
 		for(int i = 0;i<PC.size() && i<6;i++){
 			if(PC.get(i).estaVivo()){
 				pokemonvivo = true;
+				indiceJugador = i;
 				break;
 			}
 		}
@@ -567,6 +571,10 @@ public class Taller2 {
 					System.out.printf("%s -> %d puntos\n",pkLider.getNombre(),pkLider.getStats());
 					
 
+					if (StatsJugador == pkLider.getStats()) {
+						System.out.println("Ambos pokemon son igual de poderosos, lo mejor sera cambiar de Pokemon");
+						break;
+					}
 					//si ganamos
 					if(StatsJugador > pkLider.getStats()){
 						System.out.printf("Ha ganado %s! %s ha sido derrotado!\n",pkJugador.getNombre(),pkLider.getNombre());
@@ -587,13 +595,24 @@ public class Taller2 {
 						pkJugador.setEstado("Debilitado");
 
 						indiceJugador++;
-						if(indiceJugador>5 || indiceJugador>= PC.size()){
+						pokemonvivo = false;
+						for(int i = 0;i<PC.size() && i<6;i++){
+							if(PC.get(i).estaVivo()){
+								pokemonvivo = true;
+								indiceJugador =i;
+								break;
+							}
+						}
+						if (pokemonvivo) {
+							pkJugador = PC.get(indiceJugador);
+							System.out.printf("%s saca a %s!\n",jugador.getJugador(),pkJugador.getNombre());
+						
+					}else if(indiceJugador>5 || indiceJugador>= PC.size()){
 							System.out.println("Te has quedado sin Pokemons!");
 							System.out.println("Volviendo al menu...");
 							return;
 						}
-						pkJugador = PC.get(indiceJugador);
-						System.out.printf("%s saca a %s!\n",jugador.getJugador(),pkJugador.getNombre());
+						
 					}
 					
 					break;
