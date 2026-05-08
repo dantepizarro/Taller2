@@ -1,6 +1,7 @@
-dante;EmmaLaArdillaRabiosa;EmmaLaArdillaRabiosa
-Aggron;Vivo
+dante;EmmaLaArdillaRabiosa;MartinNegro;Ferran;Branco;Remi;Pruno;Dani;Maxi
+Gengar;Vivo
 Tyranitar;Vivo
 Charizard;Vivo
 Cloyster;Vivo
 Sceptile;Vivo
+Aggron;Vivo
