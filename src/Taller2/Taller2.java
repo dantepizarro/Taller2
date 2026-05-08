@@ -24,7 +24,8 @@ public class Taller2 {
 	
 
 	public static void main(String[] args) {
-		
+		//Dante Andrés Pizarro Escobar rut: 22216463-k ICCI
+		//Antonio Valentin Arancibia Rojas rut: 22313079-8 ICCI
 		Scanner scan;
 		
 		try {
@@ -290,8 +291,8 @@ public static int leerEntero(Scanner scanner, int min,int max) {
 		System.out.println("6) Mar");
 		System.out.println("7) Regresar al menu");
 		System.out.print(">");
-		System.out.println();
 		int lugar = leerEntero(scanner, 1, 7);
+		System.out.println();
 		
 		if(lugar == 7) return;
 		Capturar(lugar);
@@ -614,7 +615,7 @@ public static int leerEntero(Scanner scanner, int min,int max) {
 				
 					System.out.printf("%s -> %d puntos\n",pkLider.getNombre(),pkLider.getStats());
 
-					//aqui hice el calculo de efectividad, total sera el mismo en cualquie caso
+					//aqui hice el calculo de efectividad
 					double EFECTIVIDAD = TablaTipo.getEfectividad(pkJugador.getTipo(), pkLider.getTipo());
 					int  StatsJugador = (int)(pkJugador.getStats()*EFECTIVIDAD);
 
@@ -683,7 +684,7 @@ public static int leerEntero(Scanner scanner, int min,int max) {
 					}
 					
 					break;
-			//y toca ahora el case 2 que seria cambiar pokemon
+			//cambiar pokemon
 			case 2:
 			Scanner scanner = new Scanner(System.in);
 			int indice;
@@ -756,10 +757,15 @@ public static int leerEntero(Scanner scanner, int min,int max) {
 		}
 
 		for(int i = 0; i<Liga.size();i++){
-			BatallaLiga(jugador, Liga.get(i));
+			boolean Ganador = BatallaLiga(jugador, Liga.get(i));
+			if(!Ganador){
+		        System.out.println("Has sido eliminado de la Liga!");
+		        return;
+		    }
+			System.out.println();
 		}
 	}
-	public static void BatallaLiga(Jugador jugador, AltoMando altomando){
+	public static boolean BatallaLiga(Jugador jugador, AltoMando altomando){
 		Scanner scanner = new Scanner(System.in);
 		int indiceJugador = 0;
 		int indiceAltoMando = 0;
@@ -773,7 +779,7 @@ public static int leerEntero(Scanner scanner, int min,int max) {
 		}
 		if(!pokemonvivo) {
 			System.out.println("No tienes Pokemon vivos");
-			return;
+			return false;
 		}
 		Pokemon pkAltoMando = altomando.getEquipoAM().get(indiceAltoMando);
 		Pokemon pkJugador = PC.get(indiceJugador);
@@ -795,7 +801,7 @@ public static int leerEntero(Scanner scanner, int min,int max) {
 				
 					System.out.printf("%s -> %d puntos\n",pkAltoMando.getNombre(),pkAltoMando.getStats());
 
-					//aqui hice el calculo de efectividad, total sera el mismo en cualquie caso
+					//aqui hice el calculo de efectividad
 					double EFECTIVIDAD = TablaTipo.getEfectividad(pkJugador.getTipo(), pkAltoMando.getTipo());
 					int  StatsJugador = (int)(pkJugador.getStats()*EFECTIVIDAD);
 
@@ -828,12 +834,12 @@ public static int leerEntero(Scanner scanner, int min,int max) {
 								System.out.println("¡Felicidades! Has derrotado a todos los Altos Mandos");
 								System.out.println("Eres el nuevo Campeón UCN!!");
 							}
-							return;
+							return true;
 						}
 						pkAltoMando =	altomando.getEquipoAM().get(indiceAltoMando);
 						System.out.printf("%s saca a %s!\n",altomando.getNombre(),pkAltoMando.getNombre());
 						
-					//si perdemos, aun falta ver como hacerlo si empatan
+					//si perdemos
 					}else{
 						System.out.printf("Ha ganado %s! %s ha sido derrotado!\n",pkAltoMando.getNombre(),pkJugador.getNombre());
 						pkJugador.setEstado("Debilitado");
@@ -854,13 +860,13 @@ public static int leerEntero(Scanner scanner, int min,int max) {
 					}else if(indiceJugador>5 || indiceJugador>= PC.size()){
 							System.out.println("Te has quedado sin Pokemons, has sido expulsado de la Liga!");
 							System.out.println("Volviendo al menu...");
-							return;
+							return false;
 						}
 						
 					}
 					
 					break;
-			//y toca ahora el case 2 que seria cambiar pokemon
+			
 			case 2:
 			int indice;
 				for(int i = 0;i<PC.size() && i<6;i++){
@@ -893,10 +899,11 @@ public static int leerEntero(Scanner scanner, int min,int max) {
 				break;
 			case 3 :
 					System.out.println("Has perdido el combate contra lider "+ altomando.getNombre());
-					return;
+					return false;
 			}
 					
-		}while(opcion != 3);
+		}while(true);
+		
 	}
 }
 

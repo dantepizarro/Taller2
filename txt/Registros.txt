@@ -1,3 +1,8 @@
-tonito;none
-Floatzel;Vivo
+tonito;EmmaLaArdillaRabiosa;MartinNegro;Ferran;Branco;Remi;Pruno;Dani;Maxi
+Floatzel;Debilitado
 Tyranitar;Vivo
+Charizard;Vivo
+Decidueye;Vivo
+Excadrill;Vivo
+Dragapult;Vivo
+Staraptor;Vivo
