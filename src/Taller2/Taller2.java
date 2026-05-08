@@ -42,7 +42,7 @@ public class Taller2 {
 					stats += Integer.parseInt(partes[i]);
 				}
 				String tipo = partes[9];
-				Pokemon poke = new Pokemon(Nombre, habitat, spawnrate, stats, tipo,"vivo");
+				Pokemon poke = new Pokemon(Nombre, habitat, spawnrate, stats, tipo,"Vivo");
 				
 				lista_Poke.add(poke);
 				
@@ -125,7 +125,24 @@ public class Taller2 {
 		MenuInicial();
 
 	}
-
+public static int leerEntero(Scanner scanner, int min,int max) {
+	while(true) {
+		try {
+			String linea = scanner.nextLine();
+			int valor = Integer.parseInt(linea);
+			if(valor >= min && valor <= max) {
+				return valor;
+				
+			}else {
+				System.out.printf("Opcion Invalida. Ingresa un numero entre &d y &d \n", min, max);
+				System.out.print(">");
+			}
+		}catch (NumberFormatException e) {
+			System.out.println("Entrada invalida. Ingresa un numero");
+			System.out.print(">");
+		}
+	}
+}
 	public static void MenuInicial() {
 
 		Scanner scanner = new Scanner(System.in);
@@ -134,8 +151,8 @@ public class Taller2 {
 			System.out.println("1) Continuar");
 			System.out.println("2) Nueva Partida");
 			System.out.println("3) Salir");
-			System.out.println(">");
-			opcion = scanner.nextInt();
+			System.out.print(">");
+			opcion = leerEntero(scanner, 1, 3);
 
 			switch (opcion) {
 				case 1:
@@ -145,9 +162,6 @@ public class Taller2 {
 					IngresarJugador();		
 					break;
 				case 3:
-					break;
-				default:
-					System.out.println("Opcion invalida, ingresa 1, 2 o 3.");
 					break;
 			}
 		} while (opcion != 3);
@@ -175,6 +189,7 @@ public class Taller2 {
 				String Estado = partes[1];
 				for(int i = 0;i<lista_Poke.size();i++) {
 					if(NombrePokemon.equals(lista_Poke.get(i).getNombre())){
+						lista_Poke.get(i).setEstado(Estado);
 						PC.add(lista_Poke.get(i));
 						
 					}
@@ -208,9 +223,10 @@ public class Taller2 {
 			System.out.println("6) Curar equipo");
 			System.out.println("7) Guardar");
 			System.out.println("8) Guardar y salir");
-			System.out.println(">");
-			opcion = scanner.nextInt();
-			
+			System.out.print(">");
+		
+			opcion = leerEntero(scanner, 1, 8);
+			System.out.println();
 			switch (opcion) {
 				case 1:
 					RevisarEquipo();
@@ -236,19 +252,21 @@ public class Taller2 {
 				case 8:
 					Guardar();
 					return;
-				default:
-					System.out.println("Opcion invalida, ingresa un numero entre 1 y 8.");
-					break;
+				
 
 			}
 		} while (opcion != 8);
 	}
 	
 	public static void RevisarEquipo() {
+		if (PC.size() == 0) {
+			System.out.println("Aun no has capturado ningun Pokemon.");
+			return;
+		}
 		System.out.println("Equipo Actual:");
 		if(PC.size() < 6) {
 			for(int i = 0;i<PC.size();i++) {
-				System.out.printf("%d) %s|%s|Stats totales: %s",i+1,PC.get(i).getNombre(),PC.get(i).getTipo(),PC.get(i).getStats());
+				System.out.printf("%d) %s | %s | Stats totales: %s",i+1,PC.get(i).getNombre(),PC.get(i).getTipo(),PC.get(i).getStats());
 				System.out.println();
 			}
 		}else {
@@ -271,12 +289,10 @@ public class Taller2 {
 		System.out.println("5) Prado");
 		System.out.println("6) Mar");
 		System.out.println("7) Regresar al menu");
-		System.out.println(">");
-		int lugar = scanner.nextInt();
-		if(lugar <1 || lugar > 7) {
-			System.out.println("Zona invalida para capturar.");
-			return;
-		}
+		System.out.print(">");
+		System.out.println();
+		int lugar = leerEntero(scanner, 1, 7);
+		
 		if(lugar == 7) return;
 		Capturar(lugar);
 	}
@@ -363,8 +379,9 @@ public class Taller2 {
 		System.out.println("¿Que desea hacer?");
 		System.out.println("1) Capturar");
 		System.out.println("2) Escapar");
-		System.out.println(">");
-		int opc = scan.nextInt();
+		System.out.print(">");
+		int opc = leerEntero(scan, 1, 2);
+		System.out.println();
 		switch(opc) {
 		case 1:
 			if(Jugador.tienePokemon(salvaje.getNombre())) {
@@ -412,11 +429,8 @@ public class Taller2 {
 			System.out.println();
 			ElegirZona();
 			break;
-		default:
-			System.out.println("Opcion invalida.");
-			break;
-		}
 		
+		}
 	}
 	
 	
@@ -436,7 +450,7 @@ public class Taller2 {
 			System.out.printf("%d) %s\n",i+1,PC.get(i).getNombre());
 		}
 		System.out.println("Desea cambiar pokemons? (si/no).");
-		System.out.println(">");
+		System.out.print(">");
 		String opcion = scanner.nextLine();
 		if (!opcion.equalsIgnoreCase("si") && !opcion.equalsIgnoreCase("no")) {
 			System.out.println("Respuesta invalida, escriba si o no.");
@@ -444,21 +458,26 @@ public class Taller2 {
 		} 
 		if(opcion.equalsIgnoreCase("si")) {
 			System.out.println("Ingrese el numero del primer pokemon");
-			System.out.println(">");
-			int indice1 = scanner.nextInt() - 1;
+			System.out.print(">");
+			int indice1 = leerEntero(scanner, 1, PC.size()) - 1;
 			
 			System.out.println("Ingrese el numero del segundo pokemon");
-			System.out.println(">");
-			int indice2 = scanner.nextInt() - 1;
+			System.out.print(">");
+			int indice2 = leerEntero(scanner, 1, PC.size()) - 1;
 			
 			if(indice1 < 0 || indice2 < 0 || indice1 >= PC.size() || indice2 >= PC.size()) {
 				System.out.println("indices invalidos");
 				return;
 			}
+			if(indice1 == indice2) {
+			    System.out.println("No puedes intercambiar un pokemon consigo mismo");
+			    return;
+			}
 			
 			Pokemon temp = PC.get(indice1);
 			PC.set(indice1, PC.get(indice2));
 			PC.set(indice2, temp);
+			System.out.println();
 			System.out.println("Pokemon intercambiados con exito!");
 			Guardar();
 			
@@ -521,7 +540,7 @@ public class Taller2 {
 		}
 		System.out.println("9) Volver al menu.");
 		System.out.print(">");
-		opcion = scan.nextInt();
+		opcion = leerEntero(scan, 1, 9);
 		if (opcion < 1 || opcion > 9) {
 			System.out.println("Lider de gimnasio no encontrado, pruebe un numero entre 1 y 8.");
 			return;
@@ -587,8 +606,8 @@ public class Taller2 {
 			System.out.println("1) Atacar");
 			System.out.println("2) Cambiar de pokemon");
 			System.out.println("3) Rendirse");
-			System.out.println(">");
-			opcion = scan.nextInt();
+			System.out.print(">");
+			opcion = leerEntero(scan, 1, 3);
 			switch (opcion) {
 				case 1:
 					System.out.printf("%s -> %d puntos\n",pkJugador.getNombre(),pkJugador.getStats());
@@ -675,7 +694,7 @@ public class Taller2 {
 				}
 				
 				System.out.println(">");
-				indice = scanner.nextInt()-1;
+				indice = leerEntero(scanner, 1, Math.min(PC.size(), 6)) - 1;
 				 if(indice < 0 || indice >= PC.size() || indice >= 6){
 				        System.out.println("Indice invalido.");
 				        break;
@@ -708,6 +727,17 @@ public class Taller2 {
 		
 	}
 	public static void LigaPokemon(Jugador jugador){
+		boolean pokemonvivo = false;
+		for(int i = 0;i<PC.size() && i<6;i++){
+			if(PC.get(i).estaVivo()){
+				pokemonvivo = true;
+				break;
+			}
+		}
+		if(!pokemonvivo) {
+			System.out.println("Deberias curar a tus pokemon primero");
+			return;
+		}
 		Scanner scan = new Scanner(System.in);
 		if(Ficha.size() < 8){
 			System.out.println("No puedes enfrentar la liga pokemon sin derrotar antes a los 8 lideres");
@@ -715,7 +745,7 @@ public class Taller2 {
 		}
 		System.out.println("Vas a enfrentarte al Alto Mando, una vez que entres no podras salir hasta que todos tus pokemon se debiliten o ganes la liga");
 		System.out.println("Estas segura de continuar?(si/no)");
-		System.out.println(">");
+		System.out.print(">");
 		String opcion = scan.nextLine();
 
 		if(opcion.equalsIgnoreCase("no")){
@@ -742,7 +772,7 @@ public class Taller2 {
 			}
 		}
 		if(!pokemonvivo) {
-			System.out.println("Deberias curar a tus pokemon primero");
+			System.out.println("No tienes Pokemon vivos");
 			return;
 		}
 		Pokemon pkAltoMando = altomando.getEquipoAM().get(indiceAltoMando);
@@ -757,8 +787,8 @@ public class Taller2 {
 			System.out.println("1) Atacar");
 			System.out.println("2) Cambiar de pokemon");
 			System.out.println("3) Rendirse");
-			System.out.println(">");
-			opcion = scanner.nextInt();
+			System.out.print(">");
+			opcion = leerEntero(scanner, 1, 3);
 			switch (opcion) {
 				case 1:
 					System.out.printf("%s -> %d puntos\n",pkJugador.getNombre(),pkJugador.getStats());
@@ -822,7 +852,7 @@ public class Taller2 {
 							System.out.printf("%s saca a %s!\n",jugador.getJugador(),pkJugador.getNombre());
 						
 					}else if(indiceJugador>5 || indiceJugador>= PC.size()){
-							System.out.println("Te has quedado sin Pokemons!");
+							System.out.println("Te has quedado sin Pokemons, has sido expulsado de la Liga!");
 							System.out.println("Volviendo al menu...");
 							return;
 						}
@@ -840,7 +870,7 @@ public class Taller2 {
 				}
 				
 				System.out.println(">");
-				indice = scanner.nextInt()-1;
+				indice = leerEntero(scanner, 1, Math.min(PC.size(), 6)) - 1;
 				 if(indice < 0 || indice >= PC.size() || indice >= 6){
 				        System.out.println("Indice invalido.");
 				        break;

@@ -1,2 +1,3 @@
-antonio;none
-Slugma;Debilitado
+tonito;none
+Floatzel;Vivo
+Tyranitar;Vivo
