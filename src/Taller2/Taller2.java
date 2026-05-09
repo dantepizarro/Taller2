@@ -12,14 +12,11 @@ import java.io.IOException;
 
 public class Taller2 {
 	static List<Pokemon> lista_Poke = new ArrayList<>();
-	static List<Pokemon> EquipoAM = new ArrayList<>();
 	static List<AltoMando> Liga = new ArrayList<>();
-	static List<Pokemon> EquipoLider = new ArrayList<>();
 	static List<Lider> Lideres = new ArrayList<>();
 	static List<String> Ficha = new ArrayList<>();
 	static List<Pokemon> PC = new ArrayList<>(); 
 	static List<String> habitats = new ArrayList<>();
-	static List<Pokemon> poke_ruta = new ArrayList<>();
 	static String nombreJugador;
 	
 
@@ -59,10 +56,9 @@ public class Taller2 {
 
 			while ((scan.hasNextLine())) {
 				String[] partes = scan.nextLine().split(";");
-				EquipoAM.clear();
 				int Numero = Integer.parseInt(partes[0]);
 				String NombreAltoMando = partes[1];
-				EquipoAM.clear();
+				List<Pokemon> EquipoAM = new ArrayList<>();
 				
 				for (int i = 2; i < 8; i++) {
 					String NombrePokemon = partes[i];
@@ -90,7 +86,7 @@ public class Taller2 {
 				String Nombre = partes[1];
 				String Estado = partes[2];
 				int Cantidad = Integer.parseInt(partes[3]);
-				EquipoLider.clear();
+				List<Pokemon> EquipoLider = new ArrayList<>();
 				
 				for (int i = 4; i < Cantidad + 4; i++) {
 					String NombrePokemon = partes[i];
@@ -135,7 +131,7 @@ public static int leerEntero(Scanner scanner, int min,int max) {
 				return valor;
 				
 			}else {
-				System.out.printf("Opcion Invalida. Ingresa un numero entre &d y &d \n", min, max);
+				System.out.printf("Opcion Invalida. Ingresa un numero entre %d y d \n", min, max);
 				System.out.print(">");
 			}
 		}catch (NumberFormatException e) {
@@ -342,7 +338,7 @@ public static int leerEntero(Scanner scanner, int min,int max) {
 	public static void Capturar(int ubicacion ) {
 		Scanner scan = new Scanner(System.in);
 		Random r = new Random();
-		poke_ruta.clear();
+		List<Pokemon> poke_ruta = new ArrayList<>();
 		int cantidad = 0;
 			for( int i = 0; i< lista_Poke.size();i++) {
 				Pokemon pokemon_actual = lista_Poke.get(i);

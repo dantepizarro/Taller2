@@ -1,8 +1,8 @@
-tonito;EmmaLaArdillaRabiosa;MartinNegro;Ferran;Branco;Remi;Pruno;Dani;Maxi
-Floatzel;Debilitado
-Tyranitar;Vivo
-Charizard;Vivo
-Decidueye;Vivo
+tonito;EmmaLaArdillaRabiosa
+Garganacl;Vivo
+Sableye;Vivo
+Samurott;Vivo
+Togekiss;Vivo
+Froslass;Vivo
+Steelix;Vivo
 Excadrill;Vivo
-Dragapult;Vivo
-Staraptor;Vivo
